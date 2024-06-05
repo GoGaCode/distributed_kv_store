@@ -5,21 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4213cf8a-c7c8-4e7a-a5cd-36e80d04e1ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/google-java-format.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project1_repo.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClientTCP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClientUDP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KeyValueStore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Logger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ProtocolUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ServerTCP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ServerUDP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ClientMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ServerMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/ClientAbstract.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/ClientFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/impl/ClientTCP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/impl/ClientUDP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/KeyValueStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/ServerAbstract.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/ServerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/impl/ServerTCP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/impl/ServerUDP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/LoggerUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/NetworkProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dockerfile.client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dockerfile.server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KeyValueStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kubernetes/configmap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProtocolUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kubernetes/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kubernetes/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ProtocolUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +40,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -47,12 +60,73 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/utils" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ServerMain (3)">
+    <configuration name="ServerMain 32000" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ServerMain 32000" />
+      <module name="project1_repo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerMain (1)" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ServerMain 32000" />
+      <module name="project1_repo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerMain (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ServerMain 32000" />
+      <module name="project1_repo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerMain (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="ServerMain 32000" />
+      <module name="project1_repo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ServerMain" />
+      <module name="project1_repo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.ServerMain (1)" />
+      <item itemvalue="Application.ServerMain" />
+      <item itemvalue="Application.ServerMain (2)" />
+      <item itemvalue="Application.ServerMain (3)" />
+      <item itemvalue="Application.ServerMain 32000" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ServerMain (3)" />
+        <item itemvalue="Application.ServerMain (2)" />
+        <item itemvalue="Application.ServerMain" />
+        <item itemvalue="Application.ServerMain 32000" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
