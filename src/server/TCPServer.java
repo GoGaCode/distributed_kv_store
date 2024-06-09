@@ -1,20 +1,16 @@
-package server.impl;
+package server;
 
-import server.ServerAbstract;
 import utils.LoggerUtils;
-import java.util.logging.Level;
-
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import server.KeyValueStore;
 import utils.NetworkProtocol;
 
-public class ServerTCP extends ServerAbstract {
+public class TCPServer extends ServerAbstract {
     private KeyValueStore keyValueStore;
 
-    public ServerTCP(int portNum) {
+    public TCPServer(int portNum) {
         super();
         this.keyValueStore = new KeyValueStore();
         this.setProtocolType(NetworkProtocol.TCP);
@@ -23,14 +19,14 @@ public class ServerTCP extends ServerAbstract {
 
     public void run_subroutine() {
         try (ServerSocket serverSocket = new ServerSocket(this.portNum)) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Server is listening on port " + this.portNum);
+            LoggerUtils.logServer( "Server is listening on port " + this.portNum);
 
             while (true) {
                 try (Socket socket = serverSocket.accept();
                      DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
                      DataInputStream dis = new DataInputStream(socket.getInputStream())) {
 
-                    logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "New client connected");
+                    LoggerUtils.logServer( "New client connected");
 
                     while (true) {
                         try {
@@ -41,7 +37,7 @@ public class ServerTCP extends ServerAbstract {
                             String command = parts[0];
                             String key = parts[1];
                             String response;
-                            logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Received request from " + clientIP + ": " + request);
+                            LoggerUtils.logServer( "Received request from " + clientIP + ": " + request);
 
                             switch (command.toUpperCase()) {
                                 case "PUT":
@@ -61,20 +57,20 @@ public class ServerTCP extends ServerAbstract {
                                     response = "Invalid command";
                             }
 
-                            logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Response provided: " + response);
+                            LoggerUtils.logServer( "Response provided: " + response);
                             dos.writeUTF(response);
                             dos.flush();
                         } catch (EOFException e) {
-                            logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Client disconnected.");
+                            LoggerUtils.logServer( "Client disconnected.");
                             break;  // Exit the inner while loop
                         }
                     }
                 } catch (IOException e) {
-                    logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+                    LoggerUtils.logServer( e.getMessage());
                 }
             }
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logServer( e.getMessage());
         }
     }
 

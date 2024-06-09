@@ -11,22 +11,21 @@ public abstract class ServerAbstract implements Server {
     protected Integer portNum;
     protected String IP;
 
-    protected LoggerUtils logger = new LoggerUtils();
 
     protected static final String LOGGER_NAME = "ServerLogger";
     protected static final String LOG_FILE = "server.log";
 
     public void put(String key, String value) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "PUT " + key + " " + value);
+        LoggerUtils.logServer( "PUT " + key + " " + value);
     }
 
     public String get(String key) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "GET " + key);
+        LoggerUtils.logServer( "GET " + key);
         return "GET " + key;
     }
 
     public void delete(String key) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "DELETE " + key);
+        LoggerUtils.logServer( "DELETE " + key);
     }
 
     public void getServerIP() {
@@ -35,9 +34,9 @@ public abstract class ServerAbstract implements Server {
             InetAddress localHost = InetAddress.getLocalHost();
             // Get the IP address as a string
             String ipAddress = localHost.getHostAddress();
-            logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Server IP address: " + ipAddress);
+            LoggerUtils.logServer( "Server IP address: " + ipAddress);
         } catch (UnknownHostException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logServer( e.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
 package client;
 import utils.NetworkProtocol;
 import utils.LoggerUtils;
+
 import java.util.logging.Level;
 
 public abstract class ClientAbstract implements Client {
@@ -11,6 +12,7 @@ public abstract class ClientAbstract implements Client {
     protected NetworkProtocol protocolType;
     protected Integer portNum;
     protected String IP;
+
     protected LoggerUtils logger = new LoggerUtils();
     protected static final String LOGGER_NAME = "ClientLogger";
     protected static final String LOG_FILE = "client.log";
@@ -29,27 +31,28 @@ public abstract class ClientAbstract implements Client {
     }
 
     public void put(String key, String value) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "PUT " + key + " " + value);
+        LoggerUtils.logClient( "PUT " + key + " " + value);
     }
 
     public String get(String key) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "GET " + key);
+        LoggerUtils.logClient( "GET " + key);
         return "GET " + key;
     }
 
     public void delete(String key) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "DELETE " + key);
+        LoggerUtils.logClient( "DELETE " + key);
     }
 
     protected void handleServerResponse(String response) {
       if (!(response.contains("Stored")
           || response.contains("Retrieved")
-          || response.contains("Deleted")) ||
+          || response.contains("Deleted")
+          || response.contains("Key")) ||
            response.equals("Invalid command")) {
-        logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Unexpected Response from server: " + response);
+        LoggerUtils.logClient( "Unexpected Response from server: " + response);
       }
       else {
-          logger.log(LOGGER_NAME, LOG_FILE, Level.INFO, "Response from server: " + response);
+          LoggerUtils.logClient( "Response from server: " + response);
       }
     }
 

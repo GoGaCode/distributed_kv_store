@@ -1,0 +1,87 @@
+Gavin@the-beast ~/Desktop/nu_courses/CS6650/S24/Project 1/project1_repo/src (master●●●)$ bash run_client.sh my-client 1111 TCP                                                                                        [ruby-2.6.10p210]
+2024-06-08 23:18:40 - Response from server: Stored key1 -> value1
+2024-06-08 23:18:40 - Response from server: Stored key2 -> value2
+2024-06-08 23:18:40 - Response from server: Stored key3 -> value3
+2024-06-08 23:18:40 - Response from server: Stored key4 -> value4
+2024-06-08 23:18:40 - Response from server: Stored key5 -> value5
+2024-06-08 23:18:40 - Response from server: Retrieved key1 -> value1
+2024-06-08 23:18:40 - Response from server: Retrieved key2 -> value2
+2024-06-08 23:18:40 - Response from server: Retrieved key3 -> value3
+2024-06-08 23:18:40 - Response from server: Retrieved key4 -> value4
+2024-06-08 23:18:40 - Response from server: Retrieved key5 -> value5
+2024-06-08 23:18:40 - Response from server: Deleted key1
+2024-06-08 23:18:40 - Response from server: Deleted key2
+2024-06-08 23:18:40 - Response from server: Deleted key3
+2024-06-08 23:18:40 - Response from server: Deleted key4
+2024-06-08 23:18:40 - Response from server: Deleted key5
+2024-06-08 23:18:40 - Response from server: Key not found
+2024-06-08 23:18:40 - Response from server: Key not found
+2024-06-08 23:18:40 - Response from server: Key not found
+2024-06-08 23:18:40 - Response from server: Key not found
+2024-06-08 23:18:40 - Response from server: Key not found
+Enter command (PUT key value / GET key / DELETE key / EXIT): PUT
+Invalid PUT command. Usage: PUT key value
+Enter command (PUT key value / GET key / DELETE key / EXIT): PUT key6 val6
+2024-06-08 23:18:58 - Response from server: Stored key6 -> val6
+2024-06-08 23:18:58 - PUT key6 val6
+Enter command (PUT key value / GET key / DELETE key / EXIT): GET key6
+2024-06-08 23:19:05 - Response from server: Retrieved key6 -> val6
+2024-06-08 23:19:05 - GET key6
+Enter command (PUT key value / GET key / DELETE key / EXIT): DELETE key6
+2024-06-08 23:19:16 - Response from server: Deleted key6
+2024-06-08 23:19:16 - DELETE key6
+Enter command (PUT key value / GET key / DELETE key / EXIT): GET key6
+2024-06-08 23:19:24 - Response from server: Key not found
+2024-06-08 23:19:24 - GET key6
+Enter command (PUT key value / GET key / DELETE key / EXIT): get key6
+2024-06-08 23:19:30 - Response from server: Key not found
+2024-06-08 23:19:30 - GET key6
+Enter command (PUT key value / GET key / DELETE key / EXIT): put 6 8
+2024-06-08 23:19:36 - Response from server: Stored 6 -> 8
+2024-06-08 23:19:36 - PUT 6 8
+Enter command (PUT key value / GET key / DELETE key / EXIT): get 6
+2024-06-08 23:19:41 - Response from server: Retrieved 6 -> 8
+2024-06-08 23:19:41 - GET 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): delete 6
+2024-06-08 23:19:46 - Response from server: Deleted 6
+2024-06-08 23:19:46 - DELETE 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): get 6
+2024-06-08 23:19:49 - Response from server: Key not found
+2024-06-08 23:19:49 - GET 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): exit
+Client closed.
+Gavin@the-beast ~/Desktop/nu_courses/CS6650/S24/Project 1/project1_repo/src (master●●●)$ bash run_client.sh my-client 5555 UDP                                                                                        [ruby-2.6.10p210]
+2024-06-08 23:20:05 - Response from server: Stored key1 -> value1
+2024-06-08 23:20:05 - Response from server: Stored key2 -> value2
+2024-06-08 23:20:05 - Response from server: Stored key3 -> value3
+2024-06-08 23:20:05 - Response from server: Stored key4 -> value4
+2024-06-08 23:20:05 - Response from server: Stored key5 -> value5
+2024-06-08 23:20:05 - Response from server: Retrieved key1 -> value1
+2024-06-08 23:20:05 - Response from server: Retrieved key2 -> value2
+2024-06-08 23:20:05 - Response from server: Retrieved key3 -> value3
+2024-06-08 23:20:05 - Response from server: Retrieved key4 -> value4
+2024-06-08 23:20:05 - Response from server: Retrieved key5 -> value5
+2024-06-08 23:20:05 - Response from server: Deleted key1
+2024-06-08 23:20:05 - Response from server: Deleted key2
+2024-06-08 23:20:05 - Response from server: Deleted key3
+2024-06-08 23:20:05 - Response from server: Deleted key4
+2024-06-08 23:20:05 - Response from server: Deleted key5
+2024-06-08 23:20:05 - Response from server: Key not found
+2024-06-08 23:20:05 - Response from server: Key not found
+2024-06-08 23:20:05 - Response from server: Key not found
+2024-06-08 23:20:05 - Response from server: Key not found
+2024-06-08 23:20:05 - Response from server: Key not found
+Enter command (PUT key value / GET key / DELETE key / EXIT): get 6
+2024-06-08 23:20:10 - Response from server: Key not found
+2024-06-08 23:20:10 - GET 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): put 6 valueof6
+2024-06-08 23:20:17 - Response from server: Stored 6 -> valueof6
+2024-06-08 23:20:17 - PUT 6 valueof6
+Enter command (PUT key value / GET key / DELETE key / EXIT): get 6
+2024-06-08 23:20:19 - Response from server: Retrieved 6 -> valueof6
+2024-06-08 23:20:19 - GET 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): delete 6
+2024-06-08 23:20:22 - Response from server: Deleted 6
+2024-06-08 23:20:22 - DELETE 6
+Enter command (PUT key value / GET key / DELETE key / EXIT): exit
+Client closed.

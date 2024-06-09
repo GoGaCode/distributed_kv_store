@@ -1,21 +1,18 @@
-package client.impl;
+package client;
 
-import client.ClientAbstract;
-import utils.LoggerUtils;
 
 import java.net.SocketTimeoutException;
-import java.util.logging.Level;
-
+import utils.LoggerUtils;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class ClientUDP extends ClientAbstract {
+public class UDPClient extends ClientAbstract {
     private DatagramSocket socket;
     private InetAddress address;
 
-    public ClientUDP(String IP, Integer portNum) throws IOException {
+    public UDPClient(String IP, Integer portNum) throws IOException {
         super(IP, portNum);
         this.socket = new DatagramSocket();
         this.socket.setSoTimeout(3000); //Time out mechanism
@@ -38,9 +35,9 @@ public class ClientUDP extends ClientAbstract {
             String response = new String(packet.getData(), 0, packet.getLength());
             handleServerResponse(response);
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on PUT request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on PUT request for key: " + key);
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
     }
 
@@ -61,9 +58,9 @@ public class ClientUDP extends ClientAbstract {
             handleServerResponse(response);
             return response;
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on GET request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on GET request for key: " + key);
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
         return null;
     }
@@ -84,15 +81,15 @@ public class ClientUDP extends ClientAbstract {
             String response = new String(packet.getData(), 0, packet.getLength());
             handleServerResponse(response);
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on DELETE request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on DELETE request for key: " + key);
 
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
     }
 
     // Method to close the socket
-    public void close() {
+    public void close() throws IOException{
         if (socket != null && !socket.isClosed()) {
             socket.close();
         }

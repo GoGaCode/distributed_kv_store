@@ -1,20 +1,18 @@
-package client.impl;
+package client;
 
-import client.ClientAbstract;
-import utils.LoggerUtils;
 
 import java.net.SocketTimeoutException;
-import java.util.logging.Level;
+import utils.LoggerUtils;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ClientTCP extends ClientAbstract {
+public class TCPClient extends ClientAbstract {
     private Socket socket;
     private DataOutputStream dos;
     private DataInputStream dis;
 
-    public ClientTCP(String IP, Integer portNum) throws IOException {
+    public TCPClient(String IP, Integer portNum) throws IOException {
         super(IP, portNum);
         // Create a socket object
         this.socket = new Socket(IP, portNum);
@@ -35,9 +33,9 @@ public class ClientTCP extends ClientAbstract {
             String response = dis.readUTF();
             handleServerResponse(response);
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on PUT request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on PUT request for key: " + key);
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
     }
 
@@ -52,9 +50,9 @@ public class ClientTCP extends ClientAbstract {
             handleServerResponse(response);
             return response;
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on GET request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on GET request for key: " + key);
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
         return null;
     }
@@ -69,9 +67,9 @@ public class ClientTCP extends ClientAbstract {
             String response = dis.readUTF();
             handleServerResponse(response);
         } catch (SocketTimeoutException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.WARNING, "Server timeout on DELETE request for key: " + key);
+            LoggerUtils.logClient( "Server timeout on DELETE request for key: " + key);
         } catch (IOException e) {
-            logger.log(LOGGER_NAME, LOG_FILE, Level.SEVERE, e.getMessage());
+            LoggerUtils.logClient( e.getMessage());
         }
     }
 

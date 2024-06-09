@@ -1,65 +1,51 @@
 package utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.*;
 
 public class LoggerUtils {
-    private Map<String, Logger> loggers = new HashMap<>();
 
-    public Logger getLogger(String name, String fileName) {
-        Logger logger = loggers.get(name);
-        if (logger == null) {
-            logger = Logger.getLogger(name);
-            try {
-                // Get the path of the directory where the LoggerUtils class is stored
-                String directoryPath = Paths.get(LoggerUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().toString();
-                String fullPath = directoryPath + "/" + fileName;
+    private static final String LOG_DIR = "logs";
+    private static final String SERVER_LOG_FILE = LOG_DIR + "/server.log";
+    private static final String CLIENT_LOG_FILE = LOG_DIR + "/client.log";
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                FileHandler fileHandler = new FileHandler(fullPath, true);
-                fileHandler.setFormatter(new CustomFormatter());
-                logger.addHandler(fileHandler);
-
-                ConsoleHandler consoleHandler = new ConsoleHandler();
-                consoleHandler.setFormatter(new CustomFormatter());
-                logger.addHandler(consoleHandler);
-
-                logger.setLevel(Level.ALL);
-                loggers.put(name, logger);
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-        }
-        return logger;
-    }
-
-    public void log(String loggerName, String fileName, Level level, String message) {
-        Logger logger = getLogger(loggerName, fileName);
-        logger.log(level, message);
-    }
-
-    static class CustomFormatter extends Formatter {
-        private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        @Override
-        public String format(LogRecord record) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(sdf.format(new Date(record.getMillis()))).append(" ");
-            sb.append(record.getLevel().getLocalizedName()).append(": ");
-            sb.append(formatMessage(record));
-            sb.append(System.lineSeparator());
-            return sb.toString();
+    static {
+        // Create the logs directory if it does not exist
+        File logDir = new File(LOG_DIR);
+        if (!logDir.exists()) {
+            logDir.mkdirs();
         }
     }
 
-    public static void main(String[] args) {
-        // Example usage
-        LoggerUtils loggerUtils = new LoggerUtils();
-        loggerUtils.log("TestLogger", "test.log", Level.INFO, "This is a test log message.");
+    // Method to log server interactions
+    public static void logServer(String message) {
+        log(message, SERVER_LOG_FILE);
+    }
+
+    // Method to log client interactions
+    public static void logClient(String message) {
+        log(message, CLIENT_LOG_FILE);
+    }
+
+    // General log method
+    private static synchronized void log(String message, String logFile) {
+        String timeStamp = dateFormat.format(new Date());
+        String logMessage = timeStamp + " - " + message;
+
+        // Print to console
+        System.out.println(logMessage);
+
+        // Write to log file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
+            writer.write(logMessage);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
