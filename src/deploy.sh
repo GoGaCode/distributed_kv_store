@@ -4,6 +4,7 @@ SERVER_CONTAINER='my-server'
 CLIENT_IMAGE='project1-client-image'
 CLIENT_CONTAINER='my-client'
 
+
 # clean up existing resources, if any
 echo "----------Cleaning up existing resources----------"
 docker container stop $SERVER_CONTAINER 2> /dev/null && docker container rm $SERVER_CONTAINER 2> /dev/null
@@ -27,7 +28,9 @@ docker build -t $SERVER_IMAGE --target server-build .
 
 # run the image and open the required ports
 echo "----------Running sever app----------"
-docker run -d -p 1111:1111/tcp -p 5555:5555/udp --name $SERVER_CONTAINER --network $PROJECT_NETWORK $SERVER_IMAGE
+docker run -d -p 1111:1111/tcp -p 5555:5555/udp -p 1099:1099 --name $SERVER_CONTAINER --network $PROJECT_NETWORK $SERVER_IMAGE
+
+# start rmi registry
 
 echo "----------watching logs from server----------"
 docker logs $SERVER_CONTAINER -f

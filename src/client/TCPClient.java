@@ -1,21 +1,20 @@
 package client;
 
 
-import java.net.SocketTimeoutException;
-import utils.LoggerUtils;
-
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import utils.LoggerUtils;
 
 public class TCPClient extends ClientAbstract {
     private Socket socket;
     private DataOutputStream dos;
     private DataInputStream dis;
 
-    public TCPClient(String IP, Integer portNum) throws IOException {
-        super(IP, portNum);
+    public TCPClient(String hostname, Integer portNum) throws IOException {
+        super(hostname, portNum);
         // Create a socket object
-        this.socket = new Socket(IP, portNum);
+        this.socket = new Socket(hostname, portNum);
         this.socket.setSoTimeout(3000);
 
         // Create I/O streams for communication with the server

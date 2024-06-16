@@ -9,13 +9,12 @@ import java.util.Date;
 
 public class LoggerUtils {
 
-    private static final String LOG_DIR = "logs";
+    private static final String LOG_DIR = "./logs";
     private static final String SERVER_LOG_FILE = LOG_DIR + "/server.log";
     private static final String CLIENT_LOG_FILE = LOG_DIR + "/client.log";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     static {
-        // Create the logs directory if it does not exist
         File logDir = new File(LOG_DIR);
         if (!logDir.exists()) {
             logDir.mkdirs();

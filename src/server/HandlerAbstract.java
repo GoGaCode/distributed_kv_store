@@ -2,11 +2,11 @@ package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
 import utils.LoggerUtils;
-import java.util.logging.Level;
 import utils.NetworkProtocol;
 
-public abstract class ServerAbstract implements Server {
+public abstract class HandlerAbstract implements Server, Runnable {
     protected NetworkProtocol protocolType;
     protected Integer portNum;
     protected String IP;
@@ -15,16 +15,16 @@ public abstract class ServerAbstract implements Server {
     protected static final String LOGGER_NAME = "ServerLogger";
     protected static final String LOG_FILE = "server.log";
 
-    public void put(String key, String value) {
+    public void put(String key, String value) throws RemoteException {
         LoggerUtils.logServer( "PUT " + key + " " + value);
     }
 
-    public String get(String key) {
+    public String get(String key) throws RemoteException {
         LoggerUtils.logServer( "GET " + key);
         return "GET " + key;
     }
 
-    public void delete(String key) {
+    public void delete(String key) throws RemoteException {
         LoggerUtils.logServer( "DELETE " + key);
     }
 

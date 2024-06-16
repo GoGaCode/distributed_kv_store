@@ -8,5 +8,5 @@ COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 RUN javac server/*.java utils/*.java
 # cmd to run server locally - java server.ServerApp 1111 5555
-CMD ["java", "server.ServerApp", "1111", "5555"]
+CMD ["java", "server.ServerApp", "1111", "5555", "1099"]
 

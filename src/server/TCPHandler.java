@@ -1,18 +1,19 @@
 package server;
 
-import utils.LoggerUtils;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import utils.LoggerUtils;
 import utils.NetworkProtocol;
 
-public class TCPServer extends ServerAbstract {
-    private KeyValueStore keyValueStore;
+public class TCPHandler extends HandlerAbstract {
+    private KeyValueStoreImpl keyValueStoreImpl;
 
-    public TCPServer(int portNum) {
+    public TCPHandler(int portNum) throws RemoteException {
         super();
-        this.keyValueStore = new KeyValueStore();
+        this.keyValueStoreImpl = new KeyValueStoreImpl();
         this.setProtocolType(NetworkProtocol.TCP);
         this.setPortNum(portNum);
     }
@@ -42,15 +43,15 @@ public class TCPServer extends ServerAbstract {
                             switch (command.toUpperCase()) {
                                 case "PUT":
                                     String value = parts[2];
-                                    keyValueStore.put(key, value);
+                                    keyValueStoreImpl.put(key, value);
                                     response = "Stored " + key + " -> " + value;
                                     break;
                                 case "GET":
-                                    value = keyValueStore.get(key);
+                                    value = keyValueStoreImpl.get(key);
                                     response = (value != null) ? "Retrieved " + key + " -> " + value : "Key not found";
                                     break;
                                 case "DELETE":
-                                    keyValueStore.delete(key);
+                                    keyValueStoreImpl.delete(key);
                                     response = "Deleted " + key;
                                     break;
                                 default:

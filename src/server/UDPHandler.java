@@ -8,14 +8,15 @@ import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
-public class UDPServer extends ServerAbstract {
+public class UDPHandler extends HandlerAbstract {
 
-    private KeyValueStore keyValueStore;
+    private KeyValueStoreImpl keyValueStoreImpl;
 
-    public UDPServer(int portNum) {
+    public UDPHandler(int portNum) throws RemoteException {
         super();
-        this.keyValueStore = new KeyValueStore();
+        this.keyValueStoreImpl = new KeyValueStoreImpl();
         this.setProtocolType(NetworkProtocol.UDP);
         this.setPortNum(portNum);
     }
@@ -46,15 +47,15 @@ public class UDPServer extends ServerAbstract {
                     switch (command.toUpperCase()) {
                         case "PUT":
                             String value = parts[2];
-                            keyValueStore.put(key, value);
+                            keyValueStoreImpl.put(key, value);
                             response = "Stored " + key + " -> " + value;
                             break;
                         case "GET":
-                            value = keyValueStore.get(key);
+                            value = keyValueStoreImpl.get(key);
                             response = (value != null) ? "Retrieved " + key + " -> " + value : "Key not found";
                             break;
                         case "DELETE":
-                            keyValueStore.delete(key);
+                            keyValueStoreImpl.delete(key);
                             response = "Deleted " + key;
                             break;
                         default:

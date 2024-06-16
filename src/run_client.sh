@@ -4,11 +4,13 @@ SERVER_CONTAINER='my-server'
 
 if [ $# -ne 3 ]
 then
-  echo "Usage: ./run_client.sh <container-name> <port-number> <protocol>"
+  echo "Usage: ./run_client.sh <container-name> <protocol> <port-number>"
   exit
 fi
 
 # run client docker container with cmd args
+
+# rmiregistery $3 &
 
 docker run -it --rm --name "$1" \
  --network $PROJECT_NETWORK $CLIENT_IMAGE \

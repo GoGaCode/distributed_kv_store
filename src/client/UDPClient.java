@@ -1,22 +1,22 @@
 package client;
 
 
-import java.net.SocketTimeoutException;
-import utils.LoggerUtils;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
+import utils.LoggerUtils;
 
 public class UDPClient extends ClientAbstract {
     private DatagramSocket socket;
     private InetAddress address;
 
-    public UDPClient(String IP, Integer portNum) throws IOException {
-        super(IP, portNum);
+    public UDPClient(String hostname, Integer portNum) throws IOException {
+        super(hostname, portNum);
         this.socket = new DatagramSocket();
         this.socket.setSoTimeout(3000); //Time out mechanism
-        this.address = InetAddress.getByName(IP);
+        this.address = InetAddress.getByName(hostname);
     }
 
     @Override

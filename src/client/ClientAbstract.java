@@ -1,8 +1,6 @@
 package client;
-import utils.NetworkProtocol;
 import utils.LoggerUtils;
-
-import java.util.logging.Level;
+import utils.NetworkProtocol;
 
 public abstract class ClientAbstract implements Client {
     // Init the client takes optional argument UDP or TCP as protocol type
@@ -11,19 +9,17 @@ public abstract class ClientAbstract implements Client {
     // the appropriate method from subclass
     protected NetworkProtocol protocolType;
     protected Integer portNum;
-    protected String IP;
+    protected String hostname;
 
     protected LoggerUtils logger = new LoggerUtils();
     protected static final String LOGGER_NAME = "ClientLogger";
     protected static final String LOG_FILE = "client.log";
 
-    public ClientAbstract(String IP, Integer portNum) {
-        this.IP = IP;
-        this.portNum = portNum;
+    public ClientAbstract() {
     }
-
-    public void setIP(String IP) {
-        this.IP = IP;
+    public ClientAbstract(String hostname, Integer portNum) {
+        this.hostname = hostname;
+        this.portNum = portNum;
     }
 
     public void setPortNum(Integer portNum) {

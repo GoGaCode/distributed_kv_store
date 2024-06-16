@@ -37,6 +37,12 @@ DELETE key6
 EXIT
 ```
 
+
+Download & install maven here:
+https://maven.apache.org/download.cgi
+alternatively do `brew install maven` if you have homebrew install on your laptop.
+
+
 I've attached `example_client_log.log` and `example_server_log.log` files to demonstrate the working of the project. They are located at the `~/src` directory.
 
 ## -------------End of Project Phase I-------------

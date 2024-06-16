@@ -6,23 +6,25 @@ import utils.LoggerUtils;
 public class ClientApp {
     public static void main(String[] args) throws Exception {
 
-        if (args.length != 3) {
-            throw new IllegalArgumentException("Usage: ClientApp <host-ip> <port> <protocol>");
+        if (args.length != 3 && args.length != 2) {
+            throw new IllegalArgumentException("Usage: ClientApp <hostname> <protocol> [port]");
         }
-        String IP = args[0];
-        int portNum = Integer.parseInt(args[1]);
         Client clientInstance = null;
 
         try {
-            String protocol = args[2];
+            String hostname = args[0];
+            String protocol = args[1];
             protocol = protocol.toUpperCase();
+            int portNum = Integer.parseInt(args[2]);
             // Create client instance based on protocol
             if (protocol.equals("TCP")) {
-                clientInstance = new TCPClient(IP, portNum);
+                clientInstance = new TCPClient(hostname, portNum);
             } else if (protocol.equals("UDP")) {
-                clientInstance = new UDPClient(IP, portNum);
+                clientInstance = new UDPClient(hostname, portNum);
+            } else if (protocol.equals("RPC")) {
+                clientInstance = new RPCClient(portNum);
             } else {
-                System.out.println("Invalid protocol: " + protocol + ". Please use TCP or UDP.");
+                System.out.println("Invalid protocol: " + protocol + ". Please use RPC TCP or UDP.");
                 throw new IllegalArgumentException("Usage: ClientApp <host-ip> <port> <protocol>");
             }
 
