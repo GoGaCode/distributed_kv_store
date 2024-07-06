@@ -10,7 +10,7 @@ import java.util.Map;
 public class KeyValueStoreImpl extends UnicastRemoteObject implements KeyValueStore {
   // Using singleton pattern to allow only one instance of the store
   private Map<String, String> store;
-  private static int waitTime = 5000; // in mili-seconds
+  private static int waitTime = 1000; // in mili-seconds
   private static KeyValueStoreImpl kvStore;
 
   public void setWaitTime(int waitTime) {

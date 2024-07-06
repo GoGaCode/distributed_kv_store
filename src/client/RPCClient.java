@@ -10,13 +10,15 @@ import utils.LoggerUtils;
 
 public class RPCClient extends ClientAbstract {
     private Registry registry;
+    private String kvStoreName;
 
-    public RPCClient(int portNum) {
+    public RPCClient(int portNum, int serverIndex) {
         super();
         try {
             registry = LocateRegistry.getRegistry("my-server", portNum);
             // TODO remove this hard code
-            kvStore = (KeyValueStore) registry.lookup("keyValueStore0");
+            kvStoreName = "keyValueStore" + Integer.toString(serverIndex);
+            kvStore = (KeyValueStore) registry.lookup(kvStoreName);
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }

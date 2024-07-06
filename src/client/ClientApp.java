@@ -9,7 +9,7 @@ public class ClientApp {
 
   public static void main(String[] args) throws Exception {
 
-    if (args.length != 3) {
+    if (args.length != 4) {
       throw new IllegalArgumentException("Usage: bash run_client.sh <client-pod-name> <protocol> <port num>");
     }
     Client clientInstance = null;
@@ -17,11 +17,12 @@ public class ClientApp {
     try {
       String hostname = args[0];
       String protocol = args[1];
+      int serverIndex = Integer.parseInt(args[3]);
       protocol = protocol.toUpperCase();
       int portNum = Integer.parseInt(args[2]);
       // Create client instance based on protocol
       if (protocol.equals("RPC")) {
-        clientInstance = new RPCClient(portNum);
+        clientInstance = new RPCClient(portNum, serverIndex);
       } else {
         System.out.println("Invalid protocol: " + protocol + ". Please use RPC.");
         throw new IllegalArgumentException("Usage: ClientApp <host-ip> <port> <protocol>");

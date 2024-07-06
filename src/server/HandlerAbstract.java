@@ -47,8 +47,6 @@ public abstract class HandlerAbstract implements Server, Runnable {
 
     public void run() {
         getServerIP();
-        run_subroutine();
     }
 
-    protected abstract void run_subroutine();
 }
