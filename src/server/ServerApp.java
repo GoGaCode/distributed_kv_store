@@ -11,18 +11,18 @@ public class ServerApp {
     }
     int baseRpcPortNum = Integer.parseInt(args[0]);
 
-    int kvStoreIndex = 0;
-    for (int i = 0; i < 1; i++) {
-      kvStoreIndex = kvStoreIndex + i;
-      startServer(kvStoreIndex);
+    String serverType = "primary";
+    for (int i = 0; i < 5; i++) {
+      startServer(i, serverType);
+      serverType = "secondary";
     }
     keepServerRunning();
   }
 
-  private static void startServer(int kvStoreIndex) throws IOException {
+  private static void startServer(int kvStoreIndex, String serverType) throws IOException {
     ProcessBuilder processBuilder =
         new ProcessBuilder(
-            "java", "-cp", "./", "server.RPCHandler", Integer.toString(kvStoreIndex));
+            "java", "-cp", "./", "server.RPCHandler", serverType, Integer.toString(kvStoreIndex));
     processBuilder.inheritIO();
     processBuilder.start();
   }

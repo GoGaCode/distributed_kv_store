@@ -16,43 +16,38 @@ public class RPCHandler extends HandlerAbstract {
 
   private String kvStoreName;
 
-  public RPCHandler(int kvStoreIndex) throws RemoteException {
+  public RPCHandler(int kvStoreIndex, String serverType) throws RemoteException {
     super();
     this.kvStoreName = "keyValueStore" + Integer.toString(kvStoreIndex);
-    initialize();
+    initialize(serverType);
   }
 
-  private void initialize() throws RemoteException {
+  private void initialize(String serverType) throws RemoteException {
     synchronized (lock) {
-      if (!initialized) {
-        try {
-          kvStore = KeyValueStoreImpl.getInstance();
-          registry = LocateRegistry.createRegistry(RPC_PORT_NUM);
-          registry.rebind(this.kvStoreName, kvStore);
-
-          LoggerUtils.logServer("RPC Server" + this.kvStoreName + " started on port: " + RPC_PORT_NUM);
-          initialized = true;
-        } catch (RemoteException e) {
-          e.printStackTrace();
-          throw e;
-        }
+      kvStore = KeyValueStoreImpl.getInstance();
+      LoggerUtils.logServer("ServerType=" + serverType);
+      if (serverType.equals("primary")) {
+        registry = LocateRegistry.createRegistry(RPC_PORT_NUM);
+        LoggerUtils.logServer("Registry created on port " + RPC_PORT_NUM);
+      } else {
+        registry = LocateRegistry.getRegistry();
+        LoggerUtils.logServer("Registry found on port " + RPC_PORT_NUM);
       }
+      registry.rebind(this.kvStoreName, kvStore);
+      LoggerUtils.logServer("Successfully bind kvStore=" + this.kvStoreName + " to the registry");
     }
   }
 
   @Override
-  protected void run_subroutine() {
-
-  }
+  protected void run_subroutine() {}
 
   public static void main(String[] args) throws Exception {
-    if (args.length != 1) {
+    if (args.length != 2) {
       throw new IllegalArgumentException("Usage: RPCHandler <port num>");
     }
-    int kvStoreIndex = Integer.parseInt(args[0]);
-    RPCHandler rpcHandler = new RPCHandler(kvStoreIndex);
+    String serverType = args[0];
+    int kvStoreIndex = Integer.parseInt(args[1]);
+    RPCHandler rpcHandler = new RPCHandler(kvStoreIndex, serverType);
     rpcHandler.run();
   }
-
 }
-
