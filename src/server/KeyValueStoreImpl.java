@@ -31,6 +31,7 @@ public class KeyValueStoreImpl extends UnicastRemoteObject implements KeyValueSt
   }
 
   public synchronized void put(String key, String value) throws RemoteException {
+    // TODO: Trigger two phase commit protocol with other servers
     LoggerUtils.logServer("Storing " + key + " -> " + value);
     store.put(key, value);
     sleepForSeconds(waitTime);

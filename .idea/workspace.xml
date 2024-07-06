@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4213cf8a-c7c8-4e7a-a5cd-36e80d04e1ef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/server/CoordinatorParticipant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/CoordinatorParticipantImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/ClientApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/RPCClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/RPCClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/run_client.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/run_client.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HandlerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HandlerAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
     </list>

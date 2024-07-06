@@ -12,18 +12,28 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import utils.LoggerUtils;
 
+/*
+ * RPCHandler class is responsible for
+ *  -creating the registry.
+ *  -binding the KeyValueStoreImpl object to it.
+ */
 public class RPCHandler extends HandlerAbstract {
 
   private static Registry registry;
   private static KeyValueStoreImpl kvStore;
-  private static final Object lock = new Object();
-  private static final Path LOCK_FILE_PATH = Paths.get(System.getProperty("java.io.tmpdir"), "rmi_registry.lock");
+  private final String kvStoreName;
 
-  private String kvStoreName;
+  private static CoordinatorParticipantImpl coordinatorParticipant;
+
+  private final String coordinatorParticipantName;
+  private static final Object lock = new Object();
+  private static final Path LOCK_FILE_PATH =
+      Paths.get(System.getProperty("java.io.tmpdir"), "rmi_registry.lock");
 
   public RPCHandler(int kvStoreIndex, String serverType) {
     super();
     this.kvStoreName = "keyValueStore" + Integer.toString(kvStoreIndex);
+    this.coordinatorParticipantName = "coordinatorParticipant" + Integer.toString(kvStoreIndex);
     initialize(serverType);
   }
 
@@ -34,6 +44,7 @@ public class RPCHandler extends HandlerAbstract {
           FileLock fileLock = channel.lock()) {
 
         kvStore = KeyValueStoreImpl.getInstance();
+        coordinatorParticipant = new CoordinatorParticipantImpl();
         LoggerUtils.logServer("ServerType=" + serverType);
 
         if (serverType.equals("primary")) {
@@ -44,8 +55,15 @@ public class RPCHandler extends HandlerAbstract {
           LoggerUtils.logServer("Registry found on port " + RPC_PORT_NUM);
         }
 
+        // Add the KVStore to the registry
         registry.rebind(this.kvStoreName, kvStore);
         LoggerUtils.logServer("Successfully bind kvStore=" + this.kvStoreName + " to the registry");
+        // Add the CoordinatorParticipant to the registry
+        registry.rebind(this.coordinatorParticipantName, coordinatorParticipant);
+        LoggerUtils.logServer(
+            "Successfully bind coordinatorParticipant="
+                + this.coordinatorParticipantName
+                + " to the registry");
 
       } catch (IOException e) {
         LoggerUtils.logServer("Failed to acquire file lock for registry coordination");
