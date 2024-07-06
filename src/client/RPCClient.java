@@ -10,13 +10,13 @@ import utils.LoggerUtils;
 
 public class RPCClient extends ClientAbstract {
     private Registry registry;
-    private KeyValueStore kvStore;
 
     public RPCClient(int portNum) {
         super();
         try {
             registry = LocateRegistry.getRegistry("my-server", portNum);
-            kvStore = (KeyValueStore) registry.lookup("KeyValueStore");
+            // TODO remove this hard code
+            kvStore = (KeyValueStore) registry.lookup("keyValueStore0");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
@@ -27,6 +27,7 @@ public class RPCClient extends ClientAbstract {
         super.put(key, value);
         try {
             kvStore.put(key, value);
+            LoggerUtils.logClient("Key stored: " + key + " -> " + value);
             } catch (RemoteException e) {
               e.printStackTrace();
         }
@@ -50,6 +51,7 @@ public class RPCClient extends ClientAbstract {
         super.delete(key);
         try{
             kvStore.delete(key);
+            LoggerUtils.logClient("Key deleted: " + key);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

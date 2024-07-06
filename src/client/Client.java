@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 /**
 * The client must fulfill the following requirements:
@@ -34,5 +35,7 @@ public interface Client {
     String get(String key);
     void delete(String key);
     void close() throws IOException;
+
+    void setWaitTime(int waitTime) throws RemoteException;
 
 }

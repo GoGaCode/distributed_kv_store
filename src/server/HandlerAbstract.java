@@ -4,10 +4,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import utils.LoggerUtils;
-import utils.NetworkProtocol;
 
 public abstract class HandlerAbstract implements Server, Runnable {
-    protected NetworkProtocol protocolType;
     protected Integer portNum;
     protected String IP;
 
@@ -34,14 +32,9 @@ public abstract class HandlerAbstract implements Server, Runnable {
             InetAddress localHost = InetAddress.getLocalHost();
             // Get the IP address as a string
             String ipAddress = localHost.getHostAddress();
-            LoggerUtils.logServer( "Server IP address: " + ipAddress);
         } catch (UnknownHostException e) {
             LoggerUtils.logServer( e.getMessage());
         }
-    }
-
-    public void setProtocolType(NetworkProtocol protocolType) {
-        this.protocolType = protocolType;
     }
 
     public void setPortNum(Integer portNum) {

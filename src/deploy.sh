@@ -28,7 +28,7 @@ docker build -t $SERVER_IMAGE --target server-build .
 
 # run the image and open the required ports
 echo "----------Running sever app----------"
-docker run -d -p 1111:1111/tcp -p 5555:5555/udp -p 1099:1099 --name $SERVER_CONTAINER --network $PROJECT_NETWORK $SERVER_IMAGE
+docker run -d -p 1099:1099 --name $SERVER_CONTAINER --network $PROJECT_NETWORK $SERVER_IMAGE
 
 # start rmi registry
 

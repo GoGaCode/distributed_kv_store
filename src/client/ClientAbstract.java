@@ -1,19 +1,21 @@
 package client;
+import server.KeyValueStore;
 import utils.LoggerUtils;
-import utils.NetworkProtocol;
+
+import java.rmi.RemoteException;
 
 public abstract class ClientAbstract implements Client {
     // Init the client takes optional argument UDP or TCP as protocol type
     // if nothing provided, use TCP as default
     // Depending on the protocol type the class to use polymorphism to call
     // the appropriate method from subclass
-    protected NetworkProtocol protocolType;
     protected Integer portNum;
     protected String hostname;
 
     protected LoggerUtils logger = new LoggerUtils();
     protected static final String LOGGER_NAME = "ClientLogger";
     protected static final String LOG_FILE = "client.log";
+    protected KeyValueStore kvStore;
 
     public ClientAbstract() {
     }
@@ -50,6 +52,10 @@ public abstract class ClientAbstract implements Client {
       else {
           LoggerUtils.logClient( "Response from server: " + response);
       }
+    }
+
+    public void setWaitTime(int waitTime) throws RemoteException {
+        LoggerUtils.logClient( "Setting request wait time to " + waitTime + " milli-seconds");
     }
 
     public static class ClientFactory {}
