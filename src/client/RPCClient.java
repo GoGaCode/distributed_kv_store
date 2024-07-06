@@ -1,5 +1,7 @@
 package client;
 
+import static utils.Constant.KEY_VAL_STORE_PREFIX;
+
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -17,7 +19,7 @@ public class RPCClient extends ClientAbstract {
         try {
             registry = LocateRegistry.getRegistry("my-server", portNum);
             // TODO remove this hard code
-            kvStoreName = "keyValueStore" + Integer.toString(serverIndex);
+            kvStoreName = KEY_VAL_STORE_PREFIX + Integer.toString(serverIndex);
             kvStore = (KeyValueStore) registry.lookup(kvStoreName);
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();

@@ -13,9 +13,9 @@ public class KeyValueStoreImpl extends UnicastRemoteObject implements KeyValueSt
   private static int waitTime = 1000; // in mili-seconds
   private static KeyValueStoreImpl kvStore;
 
-  public void setWaitTime(int waitTime) {
-    this.waitTime = waitTime;
-  }
+  private CoordinatorParticipantImpl coordinatorParticipant;
+
+
 
   private KeyValueStoreImpl() throws RemoteException {
     super();
@@ -30,8 +30,12 @@ public class KeyValueStoreImpl extends UnicastRemoteObject implements KeyValueSt
     return kvStore;
   }
 
+  public void setWaitTime(int waitTime) {
+    this.waitTime = waitTime;
+  }
   public synchronized void put(String key, String value) throws RemoteException {
     // TODO: Trigger two phase commit protocol with other servers
+//    coordinatorParticipant.twoPhaseCommit(key, value);
     LoggerUtils.logServer("Storing " + key + " -> " + value);
     store.put(key, value);
     sleepForSeconds(waitTime);
@@ -44,6 +48,7 @@ public class KeyValueStoreImpl extends UnicastRemoteObject implements KeyValueSt
   }
 
   public synchronized void delete(String key) throws RemoteException {
+//    coordinatorParticipant.twoPhaseCommit(key);
     LoggerUtils.logServer("Deleting " + key);
     store.remove(key);
     sleepForSeconds(waitTime);

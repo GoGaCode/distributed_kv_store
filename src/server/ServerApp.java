@@ -6,8 +6,7 @@ public class ServerApp {
   public static void main(String[] args) throws Exception {
     // Open the server socket
     if (args.length != 1) {
-      throw new IllegalArgumentException(
-          "Usage: ServerApp <rpc-port-num>");
+      throw new IllegalArgumentException("Usage: ServerApp <rpc-port-num>");
     }
     int baseRpcPortNum = Integer.parseInt(args[0]);
 
@@ -38,5 +37,4 @@ public class ServerApp {
       System.out.println("Server interrupted, shutting down.");
     }
   }
-
 }

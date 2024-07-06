@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4213cf8a-c7c8-4e7a-a5cd-36e80d04e1ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/server/CoordinatorParticipant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/CoordinatorParticipantImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/TwoPhaseCommit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/RPCClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/RPCClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +72,9 @@
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="tcpPortNum" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="utils" />
     </key>
   </component>
   <component name="RunManager" selected="Application.ServerMain (3)">
