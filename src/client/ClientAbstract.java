@@ -1,5 +1,5 @@
 package client;
-import server.KeyValueStore;
+import server.HttpOps;
 import utils.LoggerUtils;
 
 import java.rmi.RemoteException;
@@ -15,7 +15,7 @@ public abstract class ClientAbstract implements Client {
     protected LoggerUtils logger = new LoggerUtils();
     protected static final String LOGGER_NAME = "ClientLogger";
     protected static final String LOG_FILE = "client.log";
-    protected KeyValueStore kvStore;
+    protected HttpOps kvStore;
 
     public ClientAbstract() {
     }

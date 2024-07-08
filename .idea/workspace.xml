@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4213cf8a-c7c8-4e7a-a5cd-36e80d04e1ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/server/TwoPhaseCommit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/Coordinator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/HttpOpsImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/httpType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/ClientAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/RPCClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/RPCClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/CoordinatorParticipant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Participant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/CoordinatorParticipantImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ParticipantImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/KeyValueStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HttpOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/KeyValueStoreImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/TwoPhaseCommit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -72,6 +80,9 @@
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="tcpPortNum" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="server" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="utils" />
