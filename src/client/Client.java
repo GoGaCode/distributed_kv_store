@@ -36,8 +36,6 @@ public interface Client {
     void delete(String key);
     void close() throws IOException;
 
-    void setWaitTime(int waitTime) throws RemoteException;
-
     void setServerInitialized(boolean b) throws RemoteException;
 
     boolean isServerInitialized() throws RemoteException;

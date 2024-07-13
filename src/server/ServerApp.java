@@ -2,6 +2,8 @@ package server;
 
 import java.io.IOException;
 
+import static utils.Constant.SERVER_COUNT;
+
 /**
  * ServerApp class is responsible for starting the server processes.
  */
@@ -16,7 +18,7 @@ public class ServerApp {
     // Primary server initiate the registry
     // Secondary server retrieve and add to the registry
     String serverType = "primary";
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < SERVER_COUNT; i++) {
       startServer(i, serverType);
       serverType = "secondary";
     }

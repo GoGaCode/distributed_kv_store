@@ -22,34 +22,32 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
 
   @Override
   public boolean startTwoPhaseCommit(Transaction transaction) throws RemoteException {
-    LoggerUtils.logServer("Starting two-phase commit for " + transaction.getOpsType() + " " + transaction.getKey());
-    boolean allYes = true;
-    for (Participant participant : participants) {
-      if (!participant.canCommit(transaction)) {
-        allYes = false;
-        break;
-      }
-    }
+    LoggerUtils.logServer(
+        "Starting two-phase commit for " + transaction.getOpsType() + " " + transaction.getKey(),
+        this.serverIndex);
+
+    boolean allYes = collectVotes(transaction);
 
     if (allYes) {
-      LoggerUtils.logServer("All participants agreed to commit");
-      for (Participant participant : participants) {
-        participant.doCommit(transaction);
+      boolean success = commit(transaction);
+      if (success) {
+        LoggerUtils.logServer("Transaction committed successfully", this.serverIndex);
+        return true;
+      } else {
+        LoggerUtils.logServer("Transaction failed to commit", this.serverIndex);
+        abort(transaction);
+        return false;
       }
-      return true;
-    } else {
-      for (Participant participant : participants) {
-        participant.doAbort(transaction);
-        LoggerUtils.logServer("Participant " + participant + " aborted");
-      }
-      return false;
     }
+    return false;
   }
 
   @Override
   public String startLocalCommit(Transaction transaction) throws RemoteException {
     Participant localParticipant = participants[serverIndex];
-    LoggerUtils.logServer("Starting local commit for " + transaction.getOpsType() + " " + transaction.getKey());
+    LoggerUtils.logServer(
+        "Starting local commit for " + transaction.getOpsType() + " " + transaction.getKey(),
+        this.serverIndex);
     localParticipant.doCommit(transaction);
     return localParticipant.getResult();
   }
@@ -61,16 +59,40 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
 
   @Override
   public boolean collectVotes(Transaction transaction) throws RemoteException {
-    return false;
+    for (Participant participant : participants) {
+      if (!participant.canCommit(transaction)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override
   public boolean commit(Transaction transaction) throws RemoteException {
+
+    // All participants agreed to commit
+    boolean allYes = true;
+    LoggerUtils.logServer("All participants agreed to commit", this.serverIndex);
+    for (Participant participant : participants) {
+      if (!participant.doCommit(transaction)) {
+        LoggerUtils.logServer("Participant " + participant + " failed to commit", this.serverIndex);
+        allYes = false;
+        break;
+      }
+    }
+    if (allYes) {
+      // All participants committed
+      return true;
+    }
     return false;
   }
 
   @Override
   public boolean abort(Transaction transaction) throws RemoteException {
+    for (Participant participant : participants) {
+      participant.doAbort(transaction);
+      LoggerUtils.logServer("Participant " + participant + " aborted", this.serverIndex);
+    }
     return false;
   }
 }

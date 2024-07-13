@@ -10,7 +10,6 @@ import utils.opsType;
 public class kvStoreOpsImpl extends UnicastRemoteObject implements kvStoreOps {
 
   private Coordinator coordinator;
-  protected static int waitTime = 1000; // in milliseconds
   private int serverIndex;
 
   public kvStoreOpsImpl(int serverIndex) throws RemoteException {
@@ -22,10 +21,10 @@ public class kvStoreOpsImpl extends UnicastRemoteObject implements kvStoreOps {
   public synchronized boolean put(String key, String value) throws RemoteException {
     Transaction transaction = new Transaction(opsType.PUT, key, value, this.serverIndex);
     if (coordinator.startTwoPhaseCommit(transaction)) {
-      LoggerUtils.logServer("Storing " + key + " -> " + value + " successfully");
+      LoggerUtils.logServer("Storing " + key + " -> " + value + " successfully", this.serverIndex);
       return true;
     } else {
-      LoggerUtils.logServer("Storing " + key + " -> " + value + " failed");
+      LoggerUtils.logServer("Storing " + key + " -> " + value + " failed", this.serverIndex);
       return false;
     }
   }
@@ -44,16 +43,12 @@ public class kvStoreOpsImpl extends UnicastRemoteObject implements kvStoreOps {
   public synchronized boolean delete(String key) throws RemoteException {
     Transaction transaction = new Transaction(opsType.DELETE, key, null, this.serverIndex);
     if (coordinator.startTwoPhaseCommit(transaction)) {
-      LoggerUtils.logServer("Deleting " + key + " successfully");
+      LoggerUtils.logServer("Deleting " + key + " successfully", this.serverIndex);
       return true;
     } else {
-      LoggerUtils.logServer("Deleting " + key + " failed");
+      LoggerUtils.logServer("Deleting " + key + " failed", this.serverIndex);
       return false;
     }
-  }
-
-  public void setWaitTime(int waitTime) {
-    kvStoreOpsImpl.waitTime = waitTime;
   }
 
   @Override

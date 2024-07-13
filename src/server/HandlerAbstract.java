@@ -1,5 +1,7 @@
 package server;
 
+import static utils.Constant.*;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -9,21 +11,29 @@ public abstract class HandlerAbstract implements Server, Runnable {
     protected Integer portNum;
     protected String IP;
 
+    protected final int serverIndex;
 
+    protected final String kvStoreOpsName;
+    protected final String participantName;
+    protected final String coordinatorName;
+    
     protected static final String LOGGER_NAME = "ServerLogger";
     protected static final String LOG_FILE = "server.log";
 
-    public void put(String key, String value) throws RemoteException {
-        LoggerUtils.logServer( "PUT " + key + " " + value);
+    public HandlerAbstract(int serverIndex) {
+        this.serverIndex = serverIndex;
+        this.kvStoreOpsName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
+        this.participantName = PARTICIPANT_PREFIX + Integer.toString(serverIndex);
+        this.coordinatorName = COORDINATOR_PREFIX + Integer.toString(serverIndex);
     }
 
     public String get(String key) throws RemoteException {
-        LoggerUtils.logServer( "GET " + key);
+        LoggerUtils.logServer( "GET " + key, this.serverIndex);
         return "GET " + key;
     }
 
     public void delete(String key) throws RemoteException {
-        LoggerUtils.logServer( "DELETE " + key);
+        LoggerUtils.logServer( "DELETE " + key, this.serverIndex);
     }
 
     public void getServerIP() {
@@ -33,7 +43,7 @@ public abstract class HandlerAbstract implements Server, Runnable {
             // Get the IP address as a string
             String ipAddress = localHost.getHostAddress();
         } catch (UnknownHostException e) {
-            LoggerUtils.logServer( e.getMessage());
+            LoggerUtils.logServer( e.getMessage(), this.serverIndex);
         }
     }
 

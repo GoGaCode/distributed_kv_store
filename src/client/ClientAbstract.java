@@ -2,8 +2,6 @@ package client;
 import server.kvStoreOps;
 import utils.LoggerUtils;
 
-import java.rmi.RemoteException;
-
 public abstract class ClientAbstract implements Client {
     // Init the client takes optional argument UDP or TCP as protocol type
     // if nothing provided, use TCP as default
@@ -52,11 +50,6 @@ public abstract class ClientAbstract implements Client {
       else {
           LoggerUtils.logClient( "Response from server: " + response);
       }
-    }
-
-    public void setWaitTime(int waitTime) throws RemoteException {
-        kvStore.setWaitTime(waitTime);
-        LoggerUtils.logClient( "Setting request wait time to " + waitTime + " milli-seconds");
     }
 
     public static class ClientFactory {}

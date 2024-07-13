@@ -21,13 +21,9 @@ import utils.LoggerUtils;
 public class RPCHandler extends HandlerAbstract {
 
   private static Registry registry;
-  private final int serverIndex;
   private static kvStoreOpsImpl kvStoreOps;
   private static ParticipantImpl participant;
   private static CoordinatorImpl coordinator;
-  private final String kvStoreOpsName;
-  private final String participantName;
-  private final String coordinatorName;
   private static final Object lock = new Object();
   private static final Path LOCK_FILE_PATH =
       Paths.get(System.getProperty("java.io.tmpdir"), "rmi_registry.lock");
@@ -37,14 +33,10 @@ public class RPCHandler extends HandlerAbstract {
   private Coordinator[] coordinators = new Coordinator[SERVER_COUNT];
 
   public RPCHandler(int serverIndex, String serverType) {
-    super();
-    LoggerUtils.logServer("-------Starting Server Begin----------");
-    this.serverIndex = serverIndex;
-    this.kvStoreOpsName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
-    this.participantName = PARTICIPANT_PREFIX + Integer.toString(serverIndex);
-    this.coordinatorName = COORDINATOR_PREFIX + Integer.toString(serverIndex);
+    super(serverIndex);
+    LoggerUtils.logServer("-------Starting Server Begin----------", serverIndex);
     initialize(serverType);
-    LoggerUtils.logServer("-------Starting Server Successful----------");
+    LoggerUtils.logServer("-------Starting Server Successful----------", this.serverIndex);
   }
 
   private void initialize(String serverType) {
@@ -58,33 +50,33 @@ public class RPCHandler extends HandlerAbstract {
         coordinator = new CoordinatorImpl(this.serverIndex);
         kvStoreOps.setCoordinator(coordinator);
 
-        LoggerUtils.logServer("ServerType=" + serverType);
+        LoggerUtils.logServer("ServerType=" + serverType, this.serverIndex);
 
         if (serverType.equals("primary")) {
           registry = LocateRegistry.createRegistry(RPC_PORT_NUM);
-          LoggerUtils.logServer("Registry created on port " + RPC_PORT_NUM);
+          LoggerUtils.logServer("Registry created on port " + RPC_PORT_NUM, this.serverIndex);
         } else {
           registry = LocateRegistry.getRegistry();
-          LoggerUtils.logServer("Registry found on port " + RPC_PORT_NUM);
+          LoggerUtils.logServer("Registry found on port " + RPC_PORT_NUM, this.serverIndex);
         }
 
         // Add the KVStore to the registry
         registry.rebind(this.kvStoreOpsName, kvStoreOps);
-        LoggerUtils.logServer("Successfully bind kvStore=" + this.kvStoreOpsName + " to the registry");
+        LoggerUtils.logServer("Successfully bind kvStore=" + this.kvStoreOpsName + " to the registry", this.serverIndex);
         // Add the CoordinatorParticipant to the registry
         registry.rebind(this.participantName, participant);
         LoggerUtils.logServer(
             "Successfully bind coordinatorParticipant="
                 + this.participantName
-                + " to the registry");
+                + " to the registry", this.serverIndex);
 
         // Add the Coordinator to the registry
         registry.rebind(this.coordinatorName, coordinator);
         LoggerUtils.logServer(
-            "Successfully bind coordinator=" + this.coordinatorName + " to the registry");
+            "Successfully bind coordinator=" + this.coordinatorName + " to the registry", this.serverIndex);
 
       } catch (IOException e) {
-        LoggerUtils.logServer("Failed to acquire file lock for registry coordination");
+        LoggerUtils.logServer("Failed to acquire file lock for registry coordination", this.serverIndex);
         e.printStackTrace();
       }
     }
@@ -101,7 +93,7 @@ public class RPCHandler extends HandlerAbstract {
 
   // Search for all other kvStores when they are initialized and save it to an array
   private void checkAndSavePeers() {
-    LoggerUtils.logServer("Searching for other KeyValueStores");
+    LoggerUtils.logServer("Searching for other KeyValueStores", this.serverIndex);
     new Thread(
             () -> {
               boolean allServersStarted = false;
@@ -114,38 +106,38 @@ public class RPCHandler extends HandlerAbstract {
                       participants[i] = (Participant) this.registry.lookup(PARTICIPANT_PREFIX + i);
                       coordinators[i] = (Coordinator) this.registry.lookup(COORDINATOR_PREFIX + i);
                       LoggerUtils.logServer(
-                          this.kvStoreOpsName + "found peer " + KV_STORE_OPS_PREFIX + i);
+                          this.kvStoreOpsName + "found peer " + KV_STORE_OPS_PREFIX + i, this.serverIndex);
                       LoggerUtils.logServer(
-                          this.participantName + "found peer " + PARTICIPANT_PREFIX + i);
+                          this.participantName + "found peer " + PARTICIPANT_PREFIX + i, this.serverIndex);
                       LoggerUtils.logServer(
-                          this.coordinatorName + "found peer " + COORDINATOR_PREFIX + i);
+                          this.coordinatorName + "found peer " + COORDINATOR_PREFIX + i, this.serverIndex);
                     } catch (Exception e) {
-                      LoggerUtils.logServer(e.getMessage());
+                      LoggerUtils.logServer(e.getMessage(), this.serverIndex);
                       String[] bindings = new String[0];
                       try {
                         bindings = registry.list();
                       } catch (RemoteException ex) {
                         throw new RuntimeException(ex);
                       }
-                      LoggerUtils.logServer("Currently bound objects in the registry:");
+                      LoggerUtils.logServer("Currently bound objects in the registry:", this.serverIndex);
                       for (String binding : bindings) {
-                        LoggerUtils.logServer(binding);
+                        LoggerUtils.logServer(binding, this.serverIndex);
                       }
                       allServersStarted = false;
                       // Wait for a short period before trying again
                       try {
                         Thread.sleep(1000);
                         LoggerUtils.logServer(
-                            "Pause searching on " + this.kvStoreOpsName + " for 1 second.");
+                            "Pause searching on " + this.kvStoreOpsName + " for 1 second.", this.serverIndex);
                       } catch (InterruptedException ie) {
-                        LoggerUtils.logServer("Failed to pause searching on " + this.kvStoreOpsName);
+                        LoggerUtils.logServer("Failed to pause searching on " + this.kvStoreOpsName, this.serverIndex);
                         ie.printStackTrace();
                       }
                     }
                   }
                 }
               }
-              LoggerUtils.logServer("All KV Stores are connected.");
+              LoggerUtils.logServer("All KV Stores are connected.", this.serverIndex);
             })
         .start();
   }

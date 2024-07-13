@@ -1,5 +1,7 @@
 package client;
 
+import static utils.Constant.SERVER_COUNT;
+
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import utils.LoggerUtils;
@@ -9,14 +11,15 @@ public class ClientApp {
   public static void main(String[] args) throws Exception {
 
     if (args.length != 4) {
-      throw new IllegalArgumentException("Usage: bash run_client.sh <client-pod-name> <protocol> <port num>");
+      throw new IllegalArgumentException(
+          "Usage: bash run_client.sh <client-pod-name> <protocol> <port num>");
     }
     Client clientInstance = null;
 
     try {
       String hostname = args[0];
       String protocol = args[1];
-      int serverIndex = Integer.parseInt(args[3]) % 5; // keep index range from 0 to 4
+      int serverIndex = Integer.parseInt(args[3]) % SERVER_COUNT; // keep index range from 0 to 4
       protocol = protocol.toUpperCase();
       int portNum = Integer.parseInt(args[2]);
       // Create client instance based on protocol
@@ -33,7 +36,6 @@ public class ClientApp {
       LoggerUtils.logClient("Starting demo of client get, delete, put operations");
       LoggerUtils.logClient("Client started with protocol: " + protocol);
       // Perform initial GET operations
-      clientInstance.setWaitTime(10);
       clientInstance.get("CA");
       clientInstance.get("NY");
       clientInstance.get("TX");
@@ -70,7 +72,6 @@ public class ClientApp {
 
       LoggerUtils.logClient("###################DEMO ENDS#####################");
 
-      clientInstance.setWaitTime(1000);
       // Continue to listen for console input after initial operations
       Scanner scanner = new Scanner(System.in);
       String command;
@@ -87,7 +88,7 @@ public class ClientApp {
                 String key = parts[1];
                 String value = parts[2];
                 clientInstance.put(key, value);
-                LoggerUtils.logClient("PUT " + key + " " + value);
+//                LoggerUtils.logClient("PUT " + key + " " + value);
               } else {
                 System.out.println("Invalid PUT command. Usage: PUT key value");
               }
@@ -96,7 +97,7 @@ public class ClientApp {
               if (parts.length == 2) {
                 String key = parts[1];
                 clientInstance.get(key);
-                LoggerUtils.logClient("GET " + key);
+//                LoggerUtils.logClient("GET " + key);
               } else {
                 System.out.println("Invalid GET command. Usage: GET key");
               }
@@ -105,7 +106,7 @@ public class ClientApp {
               if (parts.length == 2) {
                 String key = parts[1];
                 clientInstance.delete(key);
-                LoggerUtils.logClient("DELETE " + key);
+//                LoggerUtils.logClient("DELETE " + key);
               } else {
                 System.out.println("Invalid DELETE command. Usage: DELETE key");
               }
@@ -167,14 +168,11 @@ public class ClientApp {
         {"TX", "Texas"}
       };
 
-      clientInstance.setWaitTime(10);
       for (String[] state : states) {
         clientInstance.put(state[0], state[1]);
       }
-      clientInstance.setWaitTime(1000);
-        clientInstance.setServerInitialized(true);
+      clientInstance.setServerInitialized(true);
     }
     LoggerUtils.logClient("####################INIT ENDS####################");
-
   }
 }

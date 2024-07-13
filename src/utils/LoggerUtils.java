@@ -22,8 +22,9 @@ public class LoggerUtils {
     }
 
     // Method to log server interactions
-    public static void logServer(String message) {
-        log(message, SERVER_LOG_FILE);
+    public static void logServer(String message, int serverIndex) {
+        String logMessage = "Server " + serverIndex + " : " + message;
+        log(logMessage, SERVER_LOG_FILE);
     }
 
     // Method to log client interactions
