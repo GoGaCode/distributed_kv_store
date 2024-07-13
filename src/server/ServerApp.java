@@ -2,6 +2,9 @@ package server;
 
 import java.io.IOException;
 
+/**
+ * ServerApp class is responsible for starting the server processes.
+ */
 public class ServerApp {
   public static void main(String[] args) throws Exception {
     // Open the server socket
@@ -10,6 +13,8 @@ public class ServerApp {
     }
     int baseRpcPortNum = Integer.parseInt(args[0]);
 
+    // Primary server initiate the registry
+    // Secondary server retrieve and add to the registry
     String serverType = "primary";
     for (int i = 0; i < 5; i++) {
       startServer(i, serverType);

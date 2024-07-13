@@ -2,26 +2,26 @@ package server;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
-import utils.httpType;
 
+/**
+ * Transaction object are marshalled and passed among servers for communication
+ */
 public class Transaction implements Serializable {
 
-
-  private final Enum httpType;
+  private final Enum opsType;
   private String transId;
   private final String key;
   private final String value;
   private final int serverIndex;
   private final AtomicLong sequence;
 
-  public Transaction(utils.httpType httpType, String key, String value, int serverIndex) {
-    this.httpType = httpType;
+  public Transaction(utils.opsType opsType, String key, String value, int serverIndex) {
+    this.opsType = opsType;
     this.key = key;
     this.value = value;
     this.serverIndex = serverIndex;
     this.sequence = new AtomicLong(0);
     this.transId = genTransactionId();
-
   }
 
   public String genTransactionId() {
@@ -44,7 +44,7 @@ public class Transaction implements Serializable {
   public int getServerIndex() {
     return serverIndex;
   }
-  public Enum getHttpType() {
-    return httpType;
+  public Enum getOpsType() {
+    return opsType;
   }
 }

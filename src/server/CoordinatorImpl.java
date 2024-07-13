@@ -22,7 +22,7 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
 
   @Override
   public boolean startTwoPhaseCommit(Transaction transaction) throws RemoteException {
-    LoggerUtils.logServer("Starting two-phase commit for " + transaction.getHttpType() + " " + transaction.getKey());
+    LoggerUtils.logServer("Starting two-phase commit for " + transaction.getOpsType() + " " + transaction.getKey());
     boolean allYes = true;
     for (Participant participant : participants) {
       if (!participant.canCommit(transaction)) {
@@ -49,7 +49,7 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
   @Override
   public String startLocalCommit(Transaction transaction) throws RemoteException {
     Participant localParticipant = participants[serverIndex];
-    LoggerUtils.logServer("Starting local commit for " + transaction.getHttpType() + " " + transaction.getKey());
+    LoggerUtils.logServer("Starting local commit for " + transaction.getOpsType() + " " + transaction.getKey());
     localParticipant.doCommit(transaction);
     return localParticipant.getResult();
   }

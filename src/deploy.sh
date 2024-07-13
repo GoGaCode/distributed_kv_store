@@ -8,7 +8,9 @@ CLIENT_CONTAINER='my-client'
 # clean up existing resources, if any
 echo "----------Cleaning up existing resources----------"
 docker container stop $SERVER_CONTAINER 2> /dev/null && docker container rm $SERVER_CONTAINER 2> /dev/null
-docker container stop $CLIENT_CONTAINER 2> /dev/null && docker container rm $CLIENT_CONTAINER 2> /dev/null
+#docker container stop $CLIENT_CONTAINER 2> /dev/null && docker container rm $CLIENT_CONTAINER 2> /dev/null
+docker ps -a --filter "name=$CLIENT_CONTAINER_PATTERN" --format "{{.ID}}" | xargs -r docker container stop 2> /dev/null
+docker ps -a --filter "name=$CLIENT_CONTAINER_PATTERN" --format "{{.ID}}" | xargs -r docker container rm 2> /dev/null
 docker network rm $PROJECT_NETWORK 2> /dev/null
 
 # only cleanup

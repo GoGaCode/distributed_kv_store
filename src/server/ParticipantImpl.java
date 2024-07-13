@@ -6,7 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static utils.httpType.*;
+import static utils.Constant.INIT_FLAG_KEY;
+import static utils.opsType.*;
 
 public class ParticipantImpl extends UnicastRemoteObject implements Participant {
 
@@ -14,8 +15,6 @@ public class ParticipantImpl extends UnicastRemoteObject implements Participant 
     private Coordinator[] coordinators;
     private Map<String, String> kvStore;
     private int serverIndex;
-
-
     private String result;
 
     protected ParticipantImpl(int serverIndex) throws RemoteException {
@@ -35,12 +34,14 @@ public class ParticipantImpl extends UnicastRemoteObject implements Participant 
 
     @Override
     public boolean doCommit(Transaction transaction) throws RemoteException {
-        if (transaction.getHttpType().equals(GET)) {
+        if (transaction.getOpsType().equals(GET)) {
             result = kvStore.get(transaction.getKey());
-        } else if (transaction.getHttpType().equals(PUT)) {
+        } else if (transaction.getOpsType().equals(PUT)) {
             kvStore.put(transaction.getKey(), transaction.getValue());
-        } else if (transaction.getHttpType().equals(DELETE)) {
+        } else if (transaction.getOpsType().equals(DELETE)) {
             kvStore.remove(transaction.getKey());
+        } else if (transaction.getOpsType().equals(SET_INIT_FLAG)) {
+            kvStore.put(INIT_FLAG_KEY, "true");
         }
         return false;
     }

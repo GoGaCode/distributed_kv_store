@@ -1,28 +1,27 @@
 package client;
 
-import static utils.Constant.HTTP_OPS_PREFIX;
+import static utils.Constant.KV_STORE_OPS_PREFIX;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import server.HttpOps;
+import server.kvStoreOps;
 import utils.LoggerUtils;
 
 public class RPCClient extends ClientAbstract {
     private Registry registry;
     private String kvStoreName;
-
-    private HttpOps kvStore;
+    private kvStoreOps kvStore;
 
     public RPCClient(int portNum, int serverIndex) {
         super();
         try {
             registry = LocateRegistry.getRegistry("my-server", portNum);
             // TODO remove this hard code
-            kvStoreName = HTTP_OPS_PREFIX + Integer.toString(serverIndex);
-            kvStore = (HttpOps) registry.lookup(kvStoreName);
+            kvStoreName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
+            kvStore = (kvStoreOps) registry.lookup(kvStoreName);
             LoggerUtils.logClient("Connected to server: " + kvStoreName);
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
@@ -68,5 +67,25 @@ public class RPCClient extends ClientAbstract {
     public void close() throws IOException {
 
     }
+
+    @Override
+    public void setServerInitialized(boolean b){
+        try{
+            kvStore.setInitialized(b);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isServerInitialized(){
+        try{
+            return kvStore.isInitialized();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

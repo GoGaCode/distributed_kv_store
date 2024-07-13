@@ -1,24 +1,26 @@
 package server;
 
+import static utils.Constant.INIT_FLAG_KEY;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import utils.LoggerUtils;
-import utils.httpType;
+import utils.opsType;
 
-public class HttpOpsImpl extends UnicastRemoteObject implements HttpOps {
+public class kvStoreOpsImpl extends UnicastRemoteObject implements kvStoreOps {
 
   private Coordinator coordinator;
   protected static int waitTime = 1000; // in milliseconds
   private int serverIndex;
 
-  public HttpOpsImpl(int serverIndex) throws RemoteException {
+  public kvStoreOpsImpl(int serverIndex) throws RemoteException {
     // Initialize the store
     this.serverIndex = serverIndex;
   }
 
   @Override
   public synchronized boolean put(String key, String value) throws RemoteException {
-    Transaction transaction = new Transaction(httpType.PUT, key, value, this.serverIndex);
+    Transaction transaction = new Transaction(opsType.PUT, key, value, this.serverIndex);
     if (coordinator.startTwoPhaseCommit(transaction)) {
       LoggerUtils.logServer("Storing " + key + " -> " + value + " successfully");
       return true;
@@ -30,7 +32,7 @@ public class HttpOpsImpl extends UnicastRemoteObject implements HttpOps {
 
   @Override
   public synchronized String get(String key) throws RemoteException {
-    Transaction transaction = new Transaction(httpType.GET, key, null, this.serverIndex);
+    Transaction transaction = new Transaction(opsType.GET, key, null, this.serverIndex);
     return coordinator.startLocalCommit(transaction);
   }
 
@@ -40,7 +42,7 @@ public class HttpOpsImpl extends UnicastRemoteObject implements HttpOps {
 
   @Override
   public synchronized boolean delete(String key) throws RemoteException {
-    Transaction transaction = new Transaction(httpType.DELETE, key, null, this.serverIndex);
+    Transaction transaction = new Transaction(opsType.DELETE, key, null, this.serverIndex);
     if (coordinator.startTwoPhaseCommit(transaction)) {
       LoggerUtils.logServer("Deleting " + key + " successfully");
       return true;
@@ -51,6 +53,17 @@ public class HttpOpsImpl extends UnicastRemoteObject implements HttpOps {
   }
 
   public void setWaitTime(int waitTime) {
-    HttpOpsImpl.waitTime = waitTime;
+    kvStoreOpsImpl.waitTime = waitTime;
+  }
+
+  @Override
+  public boolean isInitialized() throws RemoteException {
+    String value = this.get(INIT_FLAG_KEY);
+    return "true".equals(value);
+  }
+
+  @Override
+  public void setInitialized(boolean initialized) throws RemoteException {
+    this.put(INIT_FLAG_KEY, "true");
   }
 }

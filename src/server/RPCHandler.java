@@ -22,17 +22,17 @@ public class RPCHandler extends HandlerAbstract {
 
   private static Registry registry;
   private final int serverIndex;
-  private static HttpOpsImpl httpOps;
+  private static kvStoreOpsImpl kvStoreOps;
   private static ParticipantImpl participant;
   private static CoordinatorImpl coordinator;
-  private final String httpOpsName;
+  private final String kvStoreOpsName;
   private final String participantName;
   private final String coordinatorName;
   private static final Object lock = new Object();
   private static final Path LOCK_FILE_PATH =
       Paths.get(System.getProperty("java.io.tmpdir"), "rmi_registry.lock");
 
-  private HttpOps[] httpOpsList = new HttpOps[SERVER_COUNT];
+  private kvStoreOps[] kvStoreOpsList = new kvStoreOps[SERVER_COUNT];
   private Participant[] participants = new Participant[SERVER_COUNT];
   private Coordinator[] coordinators = new Coordinator[SERVER_COUNT];
 
@@ -40,7 +40,7 @@ public class RPCHandler extends HandlerAbstract {
     super();
     LoggerUtils.logServer("-------Starting Server Begin----------");
     this.serverIndex = serverIndex;
-    this.httpOpsName = HTTP_OPS_PREFIX + Integer.toString(serverIndex);
+    this.kvStoreOpsName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
     this.participantName = PARTICIPANT_PREFIX + Integer.toString(serverIndex);
     this.coordinatorName = COORDINATOR_PREFIX + Integer.toString(serverIndex);
     initialize(serverType);
@@ -53,10 +53,10 @@ public class RPCHandler extends HandlerAbstract {
           FileChannel channel = raf.getChannel();
           FileLock fileLock = channel.lock()) {
 
-        httpOps = new HttpOpsImpl(this.serverIndex);
+        kvStoreOps = new kvStoreOpsImpl(this.serverIndex);
         participant = new ParticipantImpl(this.serverIndex);
         coordinator = new CoordinatorImpl(this.serverIndex);
-        httpOps.setCoordinator(coordinator);
+        kvStoreOps.setCoordinator(coordinator);
 
         LoggerUtils.logServer("ServerType=" + serverType);
 
@@ -69,8 +69,8 @@ public class RPCHandler extends HandlerAbstract {
         }
 
         // Add the KVStore to the registry
-        registry.rebind(this.httpOpsName, httpOps);
-        LoggerUtils.logServer("Successfully bind kvStore=" + this.httpOpsName + " to the registry");
+        registry.rebind(this.kvStoreOpsName, kvStoreOps);
+        LoggerUtils.logServer("Successfully bind kvStore=" + this.kvStoreOpsName + " to the registry");
         // Add the CoordinatorParticipant to the registry
         registry.rebind(this.participantName, participant);
         LoggerUtils.logServer(
@@ -108,13 +108,13 @@ public class RPCHandler extends HandlerAbstract {
               while (!allServersStarted) {
                 allServersStarted = true;
                 for (int i = 0; i < SERVER_COUNT; i++) {
-                  if (httpOpsList[i] == null) {
+                  if (kvStoreOpsList[i] == null) {
                     try {
-                      httpOpsList[i] = (HttpOps) this.registry.lookup(HTTP_OPS_PREFIX + i);
+                      kvStoreOpsList[i] = (kvStoreOps) this.registry.lookup(KV_STORE_OPS_PREFIX + i);
                       participants[i] = (Participant) this.registry.lookup(PARTICIPANT_PREFIX + i);
                       coordinators[i] = (Coordinator) this.registry.lookup(COORDINATOR_PREFIX + i);
                       LoggerUtils.logServer(
-                          this.httpOpsName + "found peer " + HTTP_OPS_PREFIX + i);
+                          this.kvStoreOpsName + "found peer " + KV_STORE_OPS_PREFIX + i);
                       LoggerUtils.logServer(
                           this.participantName + "found peer " + PARTICIPANT_PREFIX + i);
                       LoggerUtils.logServer(
@@ -136,9 +136,9 @@ public class RPCHandler extends HandlerAbstract {
                       try {
                         Thread.sleep(1000);
                         LoggerUtils.logServer(
-                            "Pause searching on " + this.httpOpsName + " for 1 second.");
+                            "Pause searching on " + this.kvStoreOpsName + " for 1 second.");
                       } catch (InterruptedException ie) {
-                        LoggerUtils.logServer("Failed to pause searching on " + this.httpOpsName);
+                        LoggerUtils.logServer("Failed to pause searching on " + this.kvStoreOpsName);
                         ie.printStackTrace();
                       }
                     }

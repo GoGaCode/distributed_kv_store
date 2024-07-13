@@ -38,4 +38,7 @@ public interface Client {
 
     void setWaitTime(int waitTime) throws RemoteException;
 
+    void setServerInitialized(boolean b) throws RemoteException;
+
+    boolean isServerInitialized() throws RemoteException;
 }

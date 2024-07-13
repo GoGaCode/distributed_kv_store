@@ -5,7 +5,6 @@ import java.util.Scanner;
 import utils.LoggerUtils;
 
 public class ClientApp {
-  public static boolean initialized = false;
 
   public static void main(String[] args) throws Exception {
 
@@ -30,7 +29,7 @@ public class ClientApp {
 
       ClientApp.populateKeyValueStore(clientInstance);
 
-      LoggerUtils.logClient("#############################################");
+      LoggerUtils.logClient("###################DEMO START#####################");
       LoggerUtils.logClient("Starting demo of client get, delete, put operations");
       LoggerUtils.logClient("Client started with protocol: " + protocol);
       // Perform initial GET operations
@@ -68,6 +67,8 @@ public class ClientApp {
       clientInstance.get("TX");
       clientInstance.get("FL");
       clientInstance.get("WA");
+
+      LoggerUtils.logClient("###################DEMO ENDS#####################");
 
       clientInstance.setWaitTime(1000);
       // Continue to listen for console input after initial operations
@@ -130,12 +131,12 @@ public class ClientApp {
   private static void populateKeyValueStore(Client clientInstance) throws RemoteException {
     // Synchronize to avoid multiple threads populating the store
     synchronized (ClientApp.class) {
-      if (initialized) {
+      if (clientInstance.isServerInitialized()) {
         LoggerUtils.logClient(
             "KeyValueStore already initialized with states. Skipping pre-population.");
         return;
       }
-      initialized = true;
+      LoggerUtils.logClient("####################INIT START####################");
       LoggerUtils.logClient("Pre-populating KeyValueStore with states");
       String[][] states = {
         {"CA", "California"},
@@ -171,6 +172,9 @@ public class ClientApp {
         clientInstance.put(state[0], state[1]);
       }
       clientInstance.setWaitTime(1000);
+        clientInstance.setServerInitialized(true);
     }
+    LoggerUtils.logClient("####################INIT ENDS####################");
+
   }
 }
