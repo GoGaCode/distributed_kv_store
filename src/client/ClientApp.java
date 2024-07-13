@@ -16,7 +16,7 @@ public class ClientApp {
     try {
       String hostname = args[0];
       String protocol = args[1];
-      int serverIndex = Integer.parseInt(args[3]);
+      int serverIndex = Integer.parseInt(args[3]) % 5; // keep index range from 0 to 4
       protocol = protocol.toUpperCase();
       int portNum = Integer.parseInt(args[2]);
       // Create client instance based on protocol

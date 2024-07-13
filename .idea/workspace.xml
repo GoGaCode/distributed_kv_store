@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/distributed_kvStore_design-FlowChart.drawio.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/ClientAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/ClientApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/RPCClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/RPCClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/deploy.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/distributed_kvStore_design.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/src/distributed_kvStore_design.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Coordinator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Coordinator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HttpOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HttpOpsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Participant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ParticipantImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ParticipantImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/httpType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/opsType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

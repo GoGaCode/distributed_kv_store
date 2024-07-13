@@ -7,10 +7,12 @@ keyValueStore.java # where interface is deinfed
 KeyValueStoreImpl.java
 ```
 
+
+## System Design Diagram
+![System Diagram](distributed_kvStore_design-FlowChart.drawio.png)
+
 ## How to run the project
 
-System Design Diagram
-![System Diagram](distributed_kvStore_design-FlowChart.drawio.png)
 #### Instructions
 Navigate to `project1_repo/src`
 ```shell
@@ -45,8 +47,26 @@ EXIT
 ```
 
 ## Executive Summary
+First part of the project use database replicas to make our distributed key value store more available and be able to handle more queries. However, duplication 
+of data among replicas can lead to inconsistency. For example, an update to one replica may not be reflected in another replica.
+The second part of the project resolves the inconsistency problem. Using the two-phase commit, we make sure our transactions
+are atomic. Meaning a transaction either reflects in all replicas or none.
+
 
 ## Technical Impression
+Reflecting on my experience for project 3, its implementation requires good understanding of coordination and communication between processes. There's some good level
+of architecture skill required to achieve our objective. We need to think about how each process/server can independently support 
+the requests from clients and at the same time be able to coordinate updates to other servers to ensure data consistency.
+To achieve this, I have to thought deeply about what kind of interfaces are needed between servers and servers. I used
+RPC for communication. To realize its implementation I need to think about how do we transfer a request from one server to another, 
+how do we ensure that the request is received through ACK. What helped me a lot is the architecture diagram I completed before implementation. It helped me think through the
+data/communication flow in the system. 
+
+I also faced some challenges. The initial challenge I had was at what level should we implement each server process.
+Meaning, if each server should reside in thread, a process, or a pod. Also, it took me sometime to figure out how client request can be passed between
+coordinators and participants. There are three types of operations we need to support (GET, DELETE, PUT), modeling those request, and
+forwarding those requests took me sometime. Furthermore, we should only have one RPC registry for the whole system, how to
+coordinate the registry creation and retrieval for 5 servers was a bit challenging.
 
 [//]: # (## Executive Summary)
 

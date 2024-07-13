@@ -55,6 +55,7 @@ public abstract class ClientAbstract implements Client {
     }
 
     public void setWaitTime(int waitTime) throws RemoteException {
+        kvStore.setWaitTime(waitTime);
         LoggerUtils.logClient( "Setting request wait time to " + waitTime + " milli-seconds");
     }
 
