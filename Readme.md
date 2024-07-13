@@ -1,15 +1,12 @@
-## Main code for project phase 2
-```
-RPCHandler.java
-ServerApp.java # where multiple server threads are created
-RPCClient.java
-keyValueStore.java # where interface is deinfed
-KeyValueStoreImpl.java
-```
-
+## Where are Phase III Main Implementations?
+- Servers initialization and coordination is in `RPCHandler`
+- Five kvStore/Server processes are started in `ServerApp`
+- Two-phase commit is implemented in `CoordinatorImpl` and `ParticipantImpl` classes
+- Once the server and a client instances are started, please check server log to see the two-phase commit in action
 
 ## System Design Diagram
 ![System Diagram](distributed_kvStore_design-FlowChart.drawio.png)
+
 
 ## How to run the project
 

@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/ClientAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/ClientApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HandlerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HandlerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ParticipantImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ParticipantImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/LoggerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/LoggerUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
