@@ -12,10 +12,10 @@ public abstract class HandlerAbstract implements Server, Runnable {
     protected String IP;
 
     protected final int serverIndex;
-
     protected final String kvStoreOpsName;
-    protected final String participantName;
-    protected final String coordinatorName;
+    protected final String acceptorName;
+    protected final String proposerName;
+    protected final String learnerName;
     
     protected static final String LOGGER_NAME = "ServerLogger";
     protected static final String LOG_FILE = "server.log";
@@ -23,8 +23,9 @@ public abstract class HandlerAbstract implements Server, Runnable {
     public HandlerAbstract(int serverIndex) {
         this.serverIndex = serverIndex;
         this.kvStoreOpsName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
-        this.participantName = PARTICIPANT_PREFIX + Integer.toString(serverIndex);
-        this.coordinatorName = COORDINATOR_PREFIX + Integer.toString(serverIndex);
+        this.acceptorName = ACCEPTOR_PREFIX + Integer.toString(serverIndex);
+        this.proposerName = PROPOSER_PREFIX + Integer.toString(serverIndex);
+        this.learnerName = LEARNER_PREFIX + Integer.toString(serverIndex);
     }
 
     public String get(String key) throws RemoteException {

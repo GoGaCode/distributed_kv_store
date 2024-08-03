@@ -21,21 +21,21 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
   }
 
   @Override
-  public boolean startTwoPhaseCommit(Transaction transaction) throws RemoteException {
+  public boolean startTwoPhaseCommit(Proposal proposal) throws RemoteException {
     LoggerUtils.logServer(
-        "Starting two-phase commit for " + transaction.getOpsType() + " " + transaction.getKey(),
+        "Starting two-phase commit for " + proposal.getOpsType() + " " + proposal.getKey(),
         this.serverIndex);
 
-    boolean allYes = collectVotes(transaction);
+    boolean allYes = collectVotes(proposal);
 
     if (allYes) {
-      boolean success = commit(transaction);
+      boolean success = commit(proposal);
       if (success) {
-        LoggerUtils.logServer("Transaction committed successfully", this.serverIndex);
+        LoggerUtils.logServer("Proposal committed successfully", this.serverIndex);
         return true;
       } else {
-        LoggerUtils.logServer("Transaction failed to commit", this.serverIndex);
-        abort(transaction);
+        LoggerUtils.logServer("Proposal failed to commit", this.serverIndex);
+        abort(proposal);
         return false;
       }
     }
@@ -43,24 +43,24 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
   }
 
   @Override
-  public String startLocalCommit(Transaction transaction) throws RemoteException {
+  public String startLocalCommit(Proposal proposal) throws RemoteException {
     Participant localParticipant = participants[serverIndex];
     LoggerUtils.logServer(
-        "Starting local commit for " + transaction.getOpsType() + " " + transaction.getKey(),
+        "Starting local commit for " + proposal.getOpsType() + " " + proposal.getKey(),
         this.serverIndex);
-    localParticipant.doCommit(transaction);
+    localParticipant.doCommit(proposal);
     return localParticipant.getResult();
   }
 
   @Override
-  public boolean getDecision(Transaction transaction) throws RemoteException {
+  public boolean getDecision(Proposal proposal) throws RemoteException {
     return false;
   }
 
   @Override
-  public boolean collectVotes(Transaction transaction) throws RemoteException {
+  public boolean collectVotes(Proposal proposal) throws RemoteException {
     for (Participant participant : participants) {
-      if (!participant.canCommit(transaction)) {
+      if (!participant.canCommit(proposal)) {
         return false;
       }
     }
@@ -68,13 +68,13 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
   }
 
   @Override
-  public boolean commit(Transaction transaction) throws RemoteException {
+  public boolean commit(Proposal proposal) throws RemoteException {
 
     // All participants agreed to commit
     boolean allYes = true;
     LoggerUtils.logServer("All participants agreed to commit", this.serverIndex);
     for (Participant participant : participants) {
-      if (!participant.doCommit(transaction)) {
+      if (!participant.doCommit(proposal)) {
         LoggerUtils.logServer("Participant " + participant + " failed to commit", this.serverIndex);
         allYes = false;
         break;
@@ -88,9 +88,9 @@ public class CoordinatorImpl extends UnicastRemoteObject implements Coordinator 
   }
 
   @Override
-  public boolean abort(Transaction transaction) throws RemoteException {
+  public boolean abort(Proposal proposal) throws RemoteException {
     for (Participant participant : participants) {
-      participant.doAbort(transaction);
+      participant.doAbort(proposal);
       LoggerUtils.logServer("Participant " + participant + " aborted", this.serverIndex);
     }
     return false;

@@ -47,7 +47,7 @@ EXIT
 First part of the project use database replicas to make our distributed key value store more available and be able to handle more queries. However, duplication 
 of data among replicas can lead to inconsistency. For example, an update to one replica may not be reflected in another replica.
 The second part of the project resolves the inconsistency problem. Using the two-phase commit, we make sure our transactions
-are atomic. Meaning a transaction either reflects in all replicas or none.
+are atomic. Meaning a proposal either reflects in all replicas or none.
 
 
 ## Technical Impression

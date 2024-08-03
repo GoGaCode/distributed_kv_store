@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/AcceptorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/AcceptorImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/LearnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/LearnerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -48,7 +51,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/Gavin/Desktop/nu_courses/CS6650/S24/Project 1/project1_repo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/Gavin/Desktop/nu_courses/CS6650/S24/Project 4/distributed_kv_store&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -72,6 +75,9 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="utils" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="server" />
     </key>
   </component>
   <component name="RunManager" selected="Application.ServerMain (3)">

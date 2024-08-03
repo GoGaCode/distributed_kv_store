@@ -4,32 +4,26 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Transaction object are marshalled and passed among servers for communication
+ * Proposal object are marshalled and passed among servers for communication
  */
-public class Transaction implements Serializable {
+public class Proposal implements Serializable {
 
   private final Enum opsType;
-  private String transId;
+  private long transId;
   private final String key;
   private final String value;
   private final int serverIndex;
   private final AtomicLong sequence;
 
-  public Transaction(utils.opsType opsType, String key, String value, int serverIndex) {
+  public Proposal(utils.opsType opsType, String key, String value, int serverIndex, long transId) {
     this.opsType = opsType;
     this.key = key;
     this.value = value;
     this.serverIndex = serverIndex;
     this.sequence = new AtomicLong(0);
-    this.transId = genTransactionId();
+    this.transId = transId;
   }
-
-  public String genTransactionId() {
-    long timestamp = System.currentTimeMillis();
-    long seq = sequence.getAndIncrement();
-    return this.transId = Integer.toString(serverIndex) + "-" + timestamp + "-" + seq;
-  }
-  public String getTransId() {
+  public long getTransId() {
     return transId;
   }
 

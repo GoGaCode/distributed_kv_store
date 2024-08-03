@@ -14,10 +14,10 @@ import java.rmi.RemoteException;
  *  -aborting the transaction.
  */
 public interface Coordinator extends Remote {
-  boolean startTwoPhaseCommit(Transaction transaction) throws RemoteException;
-  String startLocalCommit(Transaction transaction) throws RemoteException;
-  boolean getDecision(Transaction transaction) throws RemoteException;
-  boolean collectVotes(Transaction transaction) throws RemoteException;
-  boolean commit(Transaction transaction) throws RemoteException;
-  boolean abort(Transaction transaction) throws RemoteException;
+  boolean startTwoPhaseCommit(Proposal proposal) throws RemoteException;
+  String startLocalCommit(Proposal proposal) throws RemoteException;
+  boolean getDecision(Proposal proposal) throws RemoteException;
+  boolean collectVotes(Proposal proposal) throws RemoteException;
+  boolean commit(Proposal proposal) throws RemoteException;
+  boolean abort(Proposal proposal) throws RemoteException;
 }

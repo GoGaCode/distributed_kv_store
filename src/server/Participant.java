@@ -14,13 +14,13 @@ import java.rmi.RemoteException;
  */
 public interface Participant extends Remote {
 
-  boolean canCommit(Transaction transaction) throws RemoteException;
+  boolean canCommit(Proposal proposal) throws RemoteException;
 
-  boolean doCommit(Transaction transaction) throws RemoteException;
+  boolean doCommit(Proposal proposal) throws RemoteException;
 
-  boolean doAbort(Transaction transaction) throws RemoteException;
+  boolean doAbort(Proposal proposal) throws RemoteException;
 
-  boolean haveCommitted(Transaction transaction) throws RemoteException;
+  boolean haveCommitted(Proposal proposal) throws RemoteException;
 
   String getResult() throws RemoteException;
 
