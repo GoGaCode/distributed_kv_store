@@ -1,8 +1,11 @@
 package server;
 
-import static utils.Constant.INIT_FLAG_KEY;
+import static utils.Constant.*;
 
+import java.rmi.AccessException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import utils.IDGenerator;
 import utils.opsType;
@@ -23,27 +26,32 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
 
   @Override
   public synchronized boolean put(String key, String value) throws RemoteException {
-    Proposal proposal = new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.nextId());
-    if (!proposer.prepare(proposal)){
+    Proposal proposal =
+        new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.nextId());
+    if (!proposer.prepare(proposal)) {
       // Less than half of the acceptors accepted the proposal
       return false;
-    };
+    }
+    ;
     proposer.propose(proposal);
     return true;
   }
 
   @Override
   public synchronized String get(String key) throws RemoteException {
-    Proposal proposal = new Proposal(opsType.GET, key, null, this.serverIndex, this.idGenerator.nextId());
+    Proposal proposal =
+        new Proposal(opsType.GET, key, null, this.serverIndex, this.idGenerator.nextId());
     return learner.learn(proposal);
   }
 
   @Override
   public synchronized boolean delete(String key) throws RemoteException {
-    Proposal proposal = new Proposal(opsType.DELETE, key, null, this.serverIndex, this.idGenerator.nextId());
-    if (!proposer.prepare(proposal)){
+    Proposal proposal =
+        new Proposal(opsType.DELETE, key, null, this.serverIndex, this.idGenerator.nextId());
+    if (!proposer.prepare(proposal)) {
       return false;
-    };
+    }
+    ;
     proposer.propose(proposal);
     return true;
   }
@@ -59,16 +67,47 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     this.put(INIT_FLAG_KEY, "true");
   }
 
-  public void setProposer(Proposer proposer) {
-    this.proposer = proposer;
-  }
+  @Override
+  public void run() {
 
-  public void setLearner(Learner learner) {
-    this.learner = learner;
-  }
+    Registry registry;
+    try {
+      registry = LocateRegistry.getRegistry(1099);
+      registry.list(); // Check if registry already exists
 
-  public void setAcceptors(Acceptor acceptor) {
-    this.acceptor = acceptor;
-  }
+      String kvStoreName = KV_STORE_OPS_PREFIX + serverIndex;
+      registry.rebind(kvStoreName, this);
+      System.out.println(kvStoreName + " bound to registry.");
 
+      boolean registrationDone = false;
+      String learnerName = LEARNER_PREFIX + serverIndex;
+      String acceptorName = ACCEPTOR_PREFIX + serverIndex;
+      String proposerName = PROPOSER_PREFIX + serverIndex;
+      while (!registrationDone) {
+        try {
+          // Get the learner from the registry
+          learner = (Learner) registry.lookup(learnerName);
+          System.out.println(learnerName + " retrieved from registry.");
+
+          // Get the acceptor from the registry
+          acceptor = (Acceptor) registry.lookup(acceptorName);
+          System.out.println(acceptorName + " retrieved from registry.");
+
+          // Get the proposer from the registry
+          proposer = (Proposer) registry.lookup(proposerName);
+          System.out.println(proposerName + " retrieved from registry.");
+          registrationDone = true;
+        } catch (Exception e) {
+          System.out.println("Waiting for all the threads to be registered.");
+          Thread.sleep(1000);
+        }
+      }
+    } catch (AccessException e) {
+      throw new RuntimeException(e);
+    } catch (RemoteException e) {
+      throw new RuntimeException(e);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

@@ -5,9 +5,10 @@ import static utils.Constant.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
+import utils.Constant;
 import utils.LoggerUtils;
 
-public abstract class HandlerAbstract implements Server, Runnable {
+public abstract class HandlerAbstract implements Server {
     protected Integer portNum;
     protected String IP;
 
@@ -25,7 +26,7 @@ public abstract class HandlerAbstract implements Server, Runnable {
         this.kvStoreOpsName = KV_STORE_OPS_PREFIX + Integer.toString(serverIndex);
         this.acceptorName = ACCEPTOR_PREFIX + Integer.toString(serverIndex);
         this.proposerName = PROPOSER_PREFIX + Integer.toString(serverIndex);
-        this.learnerName = LEARNER_PREFIX + Integer.toString(serverIndex);
+        this.learnerName = Constant.PROPOSER_PREFIX + Integer.toString(serverIndex);
     }
 
     public String get(String key) throws RemoteException {
@@ -54,10 +55,6 @@ public abstract class HandlerAbstract implements Server, Runnable {
 
     public void setIP(String IP) {
         this.IP = IP;
-    }
-
-    public void run() {
-        getServerIP();
     }
 
 }

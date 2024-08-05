@@ -1,15 +1,16 @@
 package server;
 
-import utils.LoggerUtils;
+import static utils.Constant.*;
+import static utils.opsType.*;
+import static utils.opsType.SET_INIT_FLAG;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Map;
-
-import static utils.Constant.INIT_FLAG_KEY;
-import static utils.opsType.*;
-import static utils.opsType.SET_INIT_FLAG;
+import utils.LoggerUtils;
 
 public class LearnerImpl extends UnicastRemoteObject implements Learner{
     private Map<String, String> kvStore;
@@ -46,5 +47,29 @@ public class LearnerImpl extends UnicastRemoteObject implements Learner{
             LoggerUtils.logServer(message, this.serverIndex);
             return null;
         }
+    }
+
+    @Override
+    public void run() {
+        try {
+            // Get or create the registry on port 1099
+            Registry registry;
+            try {
+                registry = LocateRegistry.getRegistry(1099);
+                registry.list(); // Check if registry already exists
+            } catch (Exception e) {
+                registry = LocateRegistry.createRegistry(1099);
+                System.out.println("Created new RMI registry on port 1099.");
+            }
+
+            // Bind this acceptor to the registry
+            String learnerName = LEARNER_PREFIX + serverIndex;
+            registry.rebind(learnerName, this);
+            System.out.println(learnerName + " bounded to registry.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

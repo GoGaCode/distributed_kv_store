@@ -3,7 +3,7 @@ package server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Proposer extends Remote {
+public interface Proposer extends Remote, Server{
   /**
    * ID = cnt++;
    * send PREPARE(ID)
@@ -27,5 +27,6 @@ public interface Proposer extends Remote {
    * @param proposal@throws RemoteException
    */
   boolean propose(Proposal proposal) throws RemoteException;
+
 }
 

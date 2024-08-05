@@ -1,17 +1,18 @@
 package server;
 
-import utils.IDGenerator;
+import static utils.Constant.*;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import utils.IDGenerator;
 
-import static utils.Constant.SERVER_COUNT;
-
-public class ProposerImpl extends UnicastRemoteObject implements Proposer{
+public class ProposerImpl extends UnicastRemoteObject implements Proposer {
 
     private IDGenerator idGenerator;
-    private Acceptor[] acceptors = new Acceptor[SERVER_COUNT];
     private int serverIndex;
+    private Acceptor[] acceptors = new Acceptor[SERVER_COUNT];
     private Proposal accepted_proposals[] = new Proposal[SERVER_COUNT];
 
     public ProposerImpl(Integer serverIndex) throws RemoteException {
@@ -59,7 +60,42 @@ public class ProposerImpl extends UnicastRemoteObject implements Proposer{
         return true;
     }
 
-    public void setAcceptors(Acceptor[] acceptors) {
-        this.acceptors = acceptors;
+    @Override
+    public void run() {
+        try {
+            // Get or create the registry on port 1099
+            Registry registry;
+            try {
+                registry = LocateRegistry.getRegistry(1099);
+                registry.list(); // Check if registry already exists
+            } catch (Exception e) {
+                registry = LocateRegistry.createRegistry(1099);
+                System.out.println("Created new RMI registry on port 1099.");
+            }
+
+            // Bind this acceptor to the registry
+            String proposerName = PROPOSER_PREFIX + serverIndex;
+            registry.rebind(proposerName, this);
+            System.out.println(proposerName + " bound to registry.");
+
+            boolean acceptorAllFound = false;
+            while (!acceptorAllFound){
+                // Populate acceptors
+                try{
+                for (int i = 0; i < SERVER_COUNT; i++) {
+                    String acceptorName =  ACCEPTOR_PREFIX + i;
+                    acceptors[i] = (Acceptor) registry.lookup(acceptorName);
+                }
+                acceptorAllFound = true;
+                } catch (Exception e) {
+                    System.out.println("Waiting for all acceptors to be bound to registry.");
+                    Thread.sleep(1000);
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

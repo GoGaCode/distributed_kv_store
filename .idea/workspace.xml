@@ -6,9 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Acceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Acceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/AcceptorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/AcceptorImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/HandlerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HandlerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Learner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Learner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/LearnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/LearnerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Proposer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Proposer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ProposerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ProposerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

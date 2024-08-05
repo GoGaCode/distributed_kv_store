@@ -3,7 +3,7 @@ package server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Acceptor extends Remote {
+public interface Acceptor extends Remote, Server {
   /**
    * if (ID <= max_id)
    * do not respond (or respond with a "fail" message)
@@ -37,4 +37,5 @@ public interface Acceptor extends Remote {
   boolean Accept(Proposal proposal) throws RemoteException;
 
   int getServerIndex() throws RemoteException;
+
 }
