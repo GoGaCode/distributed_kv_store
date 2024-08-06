@@ -1,9 +1,12 @@
 package server;
 
+import utils.IDGeneratorImpl;
+
 import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import static utils.Constant.ID_GENERATOR_NAME;
 import static utils.Constant.SERVER_COUNT;
 
 /** ServerApp class is responsible for starting the server processes. */

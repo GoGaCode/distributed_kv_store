@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/server/IDGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/IDGeneratorImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/AcceptorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/AcceptorImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HandlerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HandlerAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/ProposerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ProposerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/IDGenerator.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

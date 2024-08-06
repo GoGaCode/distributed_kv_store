@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import utils.IDGenerator;
 import utils.opsType;
 
 public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
@@ -22,13 +21,18 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
   public kvStoreOpsPaxos(int serverIndex) throws RemoteException {
     // Initialize the store
     this.serverIndex = serverIndex;
-    this.idGenerator = new IDGenerator(serverIndex);
+    Registry registry = LocateRegistry.getRegistry(1099);
+    try {
+      this.idGenerator = (IDGenerator) registry.lookup(ID_GENERATOR_NAME);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
   public synchronized boolean put(String key, String value) throws RemoteException {
     Proposal proposal =
-        new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.nextId());
+        new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.getNextID());
     if (!proposer.prepare(proposal)) {
       return false;
     }
@@ -40,14 +44,14 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
   @Override
   public synchronized String get(String key) throws RemoteException {
     Proposal proposal =
-        new Proposal(opsType.GET, key, null, this.serverIndex, this.idGenerator.nextId());
+        new Proposal(opsType.GET, key, null, this.serverIndex, this.idGenerator.getNextID());
     return learner.learn(proposal);
   }
 
   @Override
   public synchronized boolean delete(String key) throws RemoteException {
     Proposal proposal =
-        new Proposal(opsType.DELETE, key, null, this.serverIndex, this.idGenerator.nextId());
+        new Proposal(opsType.DELETE, key, null, this.serverIndex, this.idGenerator.getNextID());
     if (!proposer.prepare(proposal)) {
       return false;
     }

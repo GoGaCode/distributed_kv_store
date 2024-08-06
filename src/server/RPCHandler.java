@@ -2,11 +2,11 @@ package server;
 
 import static utils.Constant.*;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Random;
-import java.util.concurrent.*;
+import utils.IDGeneratorImpl;
 
 /*
  * RPCHandler class is responsible for
@@ -15,13 +15,14 @@ import java.util.concurrent.*;
  */
 public class RPCHandler extends HandlerAbstract {
 
-  private static final Object lock = new Object();
-  private static final Path LOCK_FILE_PATH =
-      Paths.get(System.getProperty("java.io.tmpdir"), "rmi_registry.lock");
-  private static final Random RANDOM = new Random();
+  private IDGenerator idGenerator;
+  Registry registry;
 
-  public RPCHandler(int serverIndex) {
+  public RPCHandler(int serverIndex) throws RemoteException {
     super(serverIndex);
+    this.idGenerator = new IDGeneratorImpl();
+    registry = LocateRegistry.getRegistry(1099);
+    registry.rebind(ID_GENERATOR_NAME, idGenerator);
   }
 
   public static void main(String[] args) throws Exception {
@@ -96,7 +97,7 @@ public class RPCHandler extends HandlerAbstract {
                 }
               })
           .start();
-      Thread.sleep(getRandomNumberBetween(3000, 10000 ));
+      Thread.sleep(getRandomNumberBetween(3000, 10000));
     }
   }
 
