@@ -1,11 +1,12 @@
 package server;
 
+import static utils.Constant.*;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-
-import static utils.Constant.*;
+import utils.LoggerUtils;
 
 public class AcceptorImpl extends UnicastRemoteObject implements Acceptor {
 
@@ -81,9 +82,12 @@ public class AcceptorImpl extends UnicastRemoteObject implements Acceptor {
           Thread.sleep(1000);
         }
       }
-
+      Thread.sleep(RPCHandler.getRandomNumberBetween(20000,30000));
+      UnicastRemoteObject.unexportObject(this, true);
+      LoggerUtils.logServer("Stopping" + acceptorName, serverIndex);
     } catch (Exception e) {
       e.printStackTrace();
     }
+
   }
 }

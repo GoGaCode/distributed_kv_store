@@ -56,6 +56,7 @@ public class LearnerImpl extends UnicastRemoteObject implements Learner{
             Registry registry;
             try {
                 registry = LocateRegistry.getRegistry(1099);
+                System.out.println("Created new RMI registry on port 1099.");
                 registry.list(); // Check if registry already exists
             } catch (Exception e) {
                 registry = LocateRegistry.createRegistry(1099);

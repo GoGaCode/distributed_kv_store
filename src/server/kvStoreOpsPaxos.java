@@ -18,6 +18,8 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
   private int serverIndex;
   private IDGenerator idGenerator;
 
+  private boolean running = true;
+
   public kvStoreOpsPaxos(int serverIndex) throws RemoteException {
     // Initialize the store
     this.serverIndex = serverIndex;
@@ -89,8 +91,8 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
           learner = (Learner) registry.lookup(learnerName);
           System.out.println(learnerName + " retrieved from registry.");
 
-          // Get the acceptor from the registry
-          acceptor = (Acceptor) registry.lookup(acceptorName);
+            // Get the acceptor from the registry
+            acceptor = (Acceptor) registry.lookup(acceptorName);
           System.out.println(acceptorName + " retrieved from registry.");
 
           // Get the proposer from the registry
@@ -109,5 +111,15 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
+//    while (running) {
+//      try {
+//        Thread.sleep(1000);
+//      } catch (InterruptedException e) {
+//        throw new RuntimeException(e);
+//      }
+//    }
   }
+//  public void shutdown() {
+//    running = false;
+//  }
 }

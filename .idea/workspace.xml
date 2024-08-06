@@ -6,19 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="22f59964-0dbf-474e-955a-ed3ca08336e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Acceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Acceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/AcceptorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/AcceptorImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/HandlerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/HandlerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Learner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Learner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Coordinator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/CoordinatorImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/LearnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/LearnerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Proposer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Proposer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ProposerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ProposerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/Participant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ParticipantImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/RPCHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/RPCHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/kvStoreOpsPaxos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/kvStoreOpsTwoPhase.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +86,7 @@
       <recent name="server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerMain (3)">
+  <component name="RunManager" selected="Shell Script.project run">
     <configuration name="ServerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.ServerApp" />
       <module name="CS6650-Proj-Repo-Zhengyu-Yang" />
@@ -128,12 +124,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="project run" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/deploy.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/usr/local/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.ServerMain (1)" />
       <item itemvalue="Application.ServerApp" />
       <item itemvalue="Application.ServerMain (2)" />
       <item itemvalue="Application.ServerMain (3)" />
       <item itemvalue="Application.ServerMain 32000" />
+      <item itemvalue="Shell Script.project run" />
     </list>
     <recent_temporary>
       <list>
