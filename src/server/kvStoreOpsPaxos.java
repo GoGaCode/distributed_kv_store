@@ -13,7 +13,6 @@ import utils.opsType;
 public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
 
   private Proposer proposer;
-  private Acceptor acceptor;
   private Learner learner;
   private int serverIndex;
   private IDGenerator idGenerator;
@@ -31,7 +30,6 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     Proposal proposal =
         new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.nextId());
     if (!proposer.prepare(proposal)) {
-      // Less than half of the acceptors accepted the proposal
       return false;
     }
     ;
@@ -83,17 +81,12 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
 
       boolean registrationDone = false;
       String learnerName = LEARNER_PREFIX + serverIndex;
-      String acceptorName = ACCEPTOR_PREFIX + serverIndex;
       String proposerName = PROPOSER_PREFIX + serverIndex;
       while (!registrationDone) {
         try {
           // Get the learner from the registry
           learner = (Learner) registry.lookup(learnerName);
           System.out.println(learnerName + " retrieved from registry.");
-
-            // Get the acceptor from the registry
-            acceptor = (Acceptor) registry.lookup(acceptorName);
-          System.out.println(acceptorName + " retrieved from registry.");
 
           // Get the proposer from the registry
           proposer = (Proposer) registry.lookup(proposerName);
@@ -111,15 +104,5 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-//    while (running) {
-//      try {
-//        Thread.sleep(1000);
-//      } catch (InterruptedException e) {
-//        throw new RuntimeException(e);
-//      }
-//    }
   }
-//  public void shutdown() {
-//    running = false;
-//  }
 }

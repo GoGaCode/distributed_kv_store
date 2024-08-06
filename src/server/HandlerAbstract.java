@@ -49,12 +49,4 @@ public abstract class HandlerAbstract implements Server {
         }
     }
 
-    public void setPortNum(Integer portNum) {
-        this.portNum = portNum;
-    }
-
-    public void setIP(String IP) {
-        this.IP = IP;
-    }
-
 }

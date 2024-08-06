@@ -1,11 +1,13 @@
-## Where are Phase III Main Implementations?
-- Servers initialization and coordination is in `RPCHandler`
-- Five kvStore/Server processes are started in `ServerApp`
-- Two-phase commit is implemented in `CoordinatorImpl` and `ParticipantImpl` classes
-- Once the server and a client instances are started, please check server log to see the two-phase commit in action
+## Where are Phase IV Implementations?
+- Five kvStore/Server processes are started as 5 processes in `ServerApp`
+- Acceptor, Learner, Proposer thread initialization is in `RPCHandler`
+- Paxos implementation is in `kvStoreOpsPaxos`, `AccptorImpl`, `LearnerImpl`, `ProposerImpl`
+- When ***acceptor fails***, a msg will be logged in the server log
+- Once the server and a client instances are started, please check server log to see the Paxos commit in action
 
-## System Design Diagram
-![System Diagram](distributed_kvStore_design-FlowChart.drawio.png)
+[//]: # (## System Design Diagram)
+
+[//]: # (![System Diagram]&#40;distributed_kvStore_design-FlowChart.drawio.png&#41;)
 
 
 ## How to run the project
@@ -44,26 +46,31 @@ EXIT
 ```
 
 ## Executive Summary
-First part of the project use database replicas to make our distributed key value store more available and be able to handle more queries. However, duplication 
-of data among replicas can lead to inconsistency. For example, an update to one replica may not be reflected in another replica.
-The second part of the project resolves the inconsistency problem. Using the two-phase commit, we make sure our transactions
-are atomic. Meaning a proposal either reflects in all replicas or none.
-
+Part IV of the project is about consensus under fault tolerance and algorithm that handles fault tolerance. Distributed 
+systems consist of multiple components that each could fail at random time. To ensure the system is still operational 
+and data consistent is maintained, we need to implement a consensus algorithm. Paxos consensus algorithm will work as
+long as the majority of the server are up and running. Also, to test that the algorithm is implemented correctly, we
+simulate random failure of the acceptor.
 
 ## Technical Impression
-Reflecting on my experience for project 3, its implementation requires good understanding of coordination and communication between processes. There's some good level
-of architecture skill required to achieve our objective. We need to think about how each process/server can independently support 
-the requests from clients and at the same time be able to coordinate updates to other servers to ensure data consistency.
-To achieve this, I have to thought deeply about what kind of interfaces are needed between servers and servers. I used
-RPC for communication. To realize its implementation I need to think about how do we transfer a request from one server to another, 
-how do we ensure that the request is received through ACK. What helped me a lot is the architecture diagram I completed before implementation. It helped me think through the
-data/communication flow in the system. 
+The Paxos algorithm takes time to understand. The materials provided by the lecturer was helpful. I also watched some youtube
+video by MIT which explains the idea of Paxos well. The implementation of the Paxos requires thoughts on the organization
+of the code. First, I need to come up with the interface for the Acceptor, Learner, and Proposer. Also, I adapted the
+client facing code that combines logics of Acceptor, Learn, and Proposer code. Thankfully, the structure of the code is 
+similar to the one in phase III. So I could spend less time on figuring out the how to structure the code, and focus
+more time on the consensus algorithm.
 
-I also faced some challenges. The initial challenge I had was at what level should we implement each server process.
-Meaning, if each server should reside in thread, a process, or a pod. Also, it took me sometime to figure out how client request can be passed between
-coordinators and participants. There are three types of operations we need to support (GET, DELETE, PUT), modeling those request, and
-forwarding those requests took me sometime. Furthermore, we should only have one RPC registry for the whole system, how to
-coordinate the registry creation and retrieval for 5 servers was a bit challenging.
+The biggest challenging I had is about implementation the failure of acceptor. As suggested  by the assignment instruction,
+I implemented Acceptor, Learner, and Proposer as independent threads in a kvStore/Server process. However, instead of suggested
+by the instruction, timing out the acceptor thread does not automatically fail the acceptor that registered in the registry.
+This is rather hard to grasp as the all the threads (Acceptor, Learner, Proposer)'s life cycle is independent of the
+object binding in the registry. Meaning, when the Acceptor, Learner, Proposer finishing running, the object in registry
+pointing to those Acceptor, Learner, and Proposer could still respond to calls. 
+
+Since I am running the server in a container, debugging using debugger is a big hard  to do. I have to talk to a few 
+people to land on the idea to unbind the acceptor from the registry to simulate the failure
+of the acceptor thread. Also, after unbind the acceptor, I need to refactor the code so that the proposer can access
+the latest acceptor object instead of the stale entry that were already removed.
 
 [//]: # (## Executive Summary)
 

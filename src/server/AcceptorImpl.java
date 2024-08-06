@@ -37,7 +37,7 @@ public class AcceptorImpl extends UnicastRemoteObject implements Acceptor {
   public boolean Accept(Proposal proposal) throws RemoteException {
     if (proposal.getTransId() == max_transId) {
       accepted_proposal = proposal;
-      // TODO: all learns learn proposal
+      // all proposer need to learn proposal?
       if (learner.learn(proposal) != null) {
         accepted_proposal = null;
       }
