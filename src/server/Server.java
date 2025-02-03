@@ -1,6 +1,7 @@
 package server;
 
-public interface Server {
+import java.rmi.RemoteException;
 
-    void run();
+public interface Server {
+    void run()  throws RemoteException;
 }
