@@ -1,7 +1,7 @@
 ## Distributed KV Store
-This version of the KV store implements a Paxo algorithm that can stand a single server failure.
-Client and use PUT, GET, and DELETE RPC APIs calls to modify the content in the KV store.
-The server is containerized and run on local.
+- This version of the KV store implements a Paxo algorithm that can stand a single server failure.
+- Client can use PUT, GET, and DELETE RPC APIs calls to modify the content in the KV store.
+- The server is containerized and run on local.
 
 ### Design
 ![distributed_kvstore](./distributed_kvStore_design-FlowChart.drawio.png)
@@ -13,8 +13,7 @@ The server is containerized and run on local.
 - When ***acceptor fails***, a msg will be logged in the server log
 - Once the server and a client instances are started, please check server log to see the Paxos commit in action
 
-### How to run the project
-#### Instructions
+### How to run
 Navigate to `project1_repo/src`
 ```shell
 cd ~/project1_repo/src
