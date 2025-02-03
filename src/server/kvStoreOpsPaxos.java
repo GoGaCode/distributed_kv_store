@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import utils.LoggerUtils;
 import utils.opsType;
 
 public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
@@ -34,6 +35,8 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     Proposal proposal =
         new Proposal(opsType.PUT, key, value, this.serverIndex, this.idGenerator.getNextID());
     if (!proposer.prepare(proposal)) {
+      LoggerUtils.logServer(
+          "Failed to prepare proposal for key: " + key + " value: " + value, serverIndex);
       return false;
     }
     ;
@@ -53,6 +56,7 @@ public class kvStoreOpsPaxos extends UnicastRemoteObject implements kvStoreOps {
     Proposal proposal =
         new Proposal(opsType.DELETE, key, null, this.serverIndex, this.idGenerator.getNextID());
     if (!proposer.prepare(proposal)) {
+        LoggerUtils.logServer("Failed to prepare proposal for key: " + key, serverIndex);
       return false;
     }
     ;
